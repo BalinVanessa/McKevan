@@ -5,12 +5,29 @@
         orientation: "vertical"
         size: root.width, root.height
 
+        # Current Task's Title
         Label:
             id: task_title_label
             font_size: 32
             text: root.currentTask.title
+
+        Label:
+            id: task_progress_label
+            font_size: 32
+            text: root.currentProgress
     
+        # Next Task Button
         Button:
+            id: next_task_button
             text: "Next Task"
             font_size: 32
-            on_press: root.press()
+            on_press: root.nextTask()
+
+        # Previous Task Button
+        Button:
+            id: prev_task_button
+            text: "Previous Task"
+            # Starts it off disabled cause we start on the first task
+            disabled: True
+            font_size: 32
+            on_press: root.prevTask()
