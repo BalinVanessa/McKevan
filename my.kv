@@ -2,11 +2,32 @@ WindowManager:
     HomeScreen:
     ActiveGoalScreen:
     NewGoalScreen:
+    MyFish:
+
+<Button>:
+    background_normal: ''
+    background_color: 0.6, 0.882, 0.85, 1
+    color: 0.176, 0.133, 0.133, 1
+
+<Label>:
+    color: 0.176, 0.133, 0.133, 1
 
 <HomeScreen>:
     name: "home"
 
-    FloatLayout:
+    AnchorLayout:
+        anchor_x: "left"
+        anchor_y: "top"
+        Button:
+            text: "My Fish"
+            size_hint: 0.2, 0.1
+            on_release:
+                app.root.current = "myfish"
+                root.manager.transition.direction = "down"
+
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "bottom"
         GridLayout:
             pos_hint: {"bottom": 0}
             size_hint: 1, 0.1
@@ -25,10 +46,33 @@ WindowManager:
                     app.root.current = "newgoal"
                     root.manager.transition.direction = "left"
 
+<MyFish>:
+    name: "myfish"
+
+    AnchorLayout:
+        anchor_x: "left"
+        anchor_y: "top"
+        Label:
+            text: "My Fish"
+            font_size: 60
+
+    AnchorLayout:
+        anchor_x: "right"
+        anchor_y: "top"
+        Button:
+            text: "X"
+            font_size: 60
+            size_hint: 0.1, 0.1
+            on_release:
+                app.root.current = "home"
+                root.manager.transition.direction = "up"
+
 <ActiveGoalScreen>:
     name: "active"
 
-    FloatLayout:
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "bottom"
         GridLayout:
             pos_hint: {"bottom": 0}
             size_hint: 1, 0.1
@@ -50,9 +94,27 @@ WindowManager:
 <NewGoalScreen>:
     name: "newgoal"
 
-    FloatLayout:
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "top"
+        Label:
+            font_size: 60
+            size_hint: 0.3, 0.3
+            text: "Add New Goal"
+
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "center"
+        Button:
+            size_hint: 0.2, 0.2
+            text: "+"
+
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "bottom"
         GridLayout:
-            pos_hint: {"bottom": 0}
+            anchor_x: "center"
+            anchor_y: "bottom"
             size_hint: 1, 0.1
             cols: 3
             Button:
