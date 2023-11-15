@@ -1,20 +1,29 @@
+#root manager for all screens
 WindowManager:
     HomeScreen:
     ActiveGoalScreen:
     NewGoalScreen:
     MyFish:
+    NewGoal_Name:
+    NewGoal_Times:
+    NewGoal_Reminders:
 
+#default all buttons to blue background with dark gray text
 <Button>:
     background_normal: ''
     background_color: 0.6, 0.882, 0.85, 1
     color: 0.176, 0.133, 0.133, 1
 
+#defual all labels to dark gray text
 <Label>:
     color: 0.176, 0.133, 0.133, 1
 
+#home screem
 <HomeScreen>:
+    #id to switching to this screen
     name: "home"
 
+    #button to acess my fish screen
     AnchorLayout:
         anchor_x: "left"
         anchor_y: "top"
@@ -25,6 +34,7 @@ WindowManager:
                 app.root.current = "myfish"
                 root.manager.transition.direction = "down"
 
+    # nav bar (home)
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "bottom"
@@ -46,9 +56,12 @@ WindowManager:
                     app.root.current = "newgoal"
                     root.manager.transition.direction = "left"
 
+# My Fish screen
 <MyFish>:
+    # Id for switching to my fish screen
     name: "myfish"
 
+    # title of screen (not currently in the correct position)
     AnchorLayout:
         anchor_x: "left"
         anchor_y: "top"
@@ -56,6 +69,7 @@ WindowManager:
             text: "My Fish"
             font_size: 60
 
+    # button for returning to home screen
     AnchorLayout:
         anchor_x: "right"
         anchor_y: "top"
@@ -67,9 +81,12 @@ WindowManager:
                 app.root.current = "home"
                 root.manager.transition.direction = "up"
 
+# screen for displaying active goals
 <ActiveGoalScreen>:
+    # Id for navigating to this screen
     name: "active"
 
+    # nav bar (active goal)
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "bottom"
@@ -91,9 +108,12 @@ WindowManager:
                     app.root.current = "newgoal"
                     root.manager.transition.direction = "left"
 
+#Screen for new goals
 <NewGoalScreen>:
+    #Id for navigating to new goal
     name: "newgoal"
 
+    #Title of screen
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "top"
@@ -102,13 +122,18 @@ WindowManager:
             size_hint: 0.3, 0.3
             text: "Add New Goal"
 
+    #add a new goal button (not functional)
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "center"
         Button:
             size_hint: 0.2, 0.2
             text: "+"
+            on_release:
+                app.root.current = "newgoal_name"
+                root.manager.transition.direction = "down"
 
+    #nav bar (add new goal)
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "bottom"
@@ -130,3 +155,54 @@ WindowManager:
             Button:
                 text: "add goal"
                 disabled: True
+
+#screen for setting Name of goal
+<NewGoal_Name>:
+    name: "newgoal_name"
+
+    GridLayout:
+        cols: 2
+        Button:
+            text: "back"
+            on_release:
+                app.root.current = "newgoal"
+                root.manager.transition.direction = "right"
+        Button:
+            text: "next"
+            on_release:
+                app.root.current = "newgoal_times"
+                root.manager.transition.direction = "left"
+
+#screen for setting number of times you want to achive
+<NewGoal_Times>:
+    name: "newgoal_times"
+
+    GridLayout:
+        cols: 2
+        Button:
+            text: "back"
+            on_release:
+                app.root.current = "newgoal_name"
+                root.manager.transition.direction = "right"
+        Button:
+            text: "next"
+            on_release:
+                app.root.current = "newgoal_reminders"
+                root.manager.transition.direction = "left"
+
+#screen for setting reminder time and day
+<NewGoal_Reminders>:
+    name: "newgoal_reminders"
+
+    GridLayout:
+        cols: 2
+        Button:
+            text: "back"
+            on_release:
+                app.root.current = "newgoal_times"
+                root.manager.transition.direction = "right"
+        Button:
+            text: "next"
+            on_release:
+                app.root.current = "newgoal"
+                root.manager.transition.direction = "up"
