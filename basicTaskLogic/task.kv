@@ -1,0 +1,16 @@
+#:kivy 2.2.1
+
+<TaskScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Label:
+            id: task_title_label
+            font_size: 32
+            text: root.currentTask.title
+    
+        Button:
+            text: "Next Task"
+            font_size: 32
+            on_press: root.press()
