@@ -14,9 +14,14 @@ WindowManager:
     background_color: 0.6, 0.882, 0.85, 1
     color: 0.176, 0.133, 0.133, 1
 
-#defual all labels to dark gray text
+#default all labels to dark gray text
 <Label>:
     color: 0.176, 0.133, 0.133, 1
+
+#default padding and spacing for grid layouts
+<GridLayout>:
+    padding: 10, 10
+    spacing: 10, 10
 
 #home screem
 <HomeScreen>:
@@ -127,7 +132,7 @@ WindowManager:
         anchor_x: "center"
         anchor_y: "center"
         Button:
-            size_hint: 0.2, 0.2
+            size_hint: 0.38, 0.2
             text: "+"
             on_release:
                 app.root.current = "newgoal_name"
@@ -161,48 +166,148 @@ WindowManager:
     name: "newgoal_name"
 
     GridLayout:
-        cols: 2
+        cols: 1
+        Label:
+            text: "What is your goal?"
+            font_size: 60
+        Label:
+            text: "Write a custom goal"
+            font_size: 40
+        TextInput:
+            id: goal_name
+            multiline: False
+        Label:
+            text: "or"
+            font_size: 60
+        Label:
+            text: "Choose a preset"
+            font_size: 40
         Button:
-            text: "back"
-            on_release:
-                app.root.current = "newgoal"
-                root.manager.transition.direction = "right"
+            text: "text someone first"
         Button:
-            text: "next"
-            on_release:
-                app.root.current = "newgoal_times"
-                root.manager.transition.direction = "left"
+            text: "call a family memeber"
+        Button:
+            text: "compliment a friend"
+        Button:
+            text: "attend a club"
+        Button:
+            text: "try something new with someone"
+
+        GridLayout:
+            size_y: root.height * 0.1
+            padding: 0, 0
+            cols: 2
+            Button:
+                text: "back"
+                on_release:
+                    app.root.current = "newgoal"
+                    root.manager.transition.direction = "right"
+            Button:
+                text: "next"
+                on_release:
+                    app.root.current = "newgoal_times"
+                    root.manager.transition.direction = "left"
 
 #screen for setting number of times you want to achive
 <NewGoal_Times>:
     name: "newgoal_times"
 
-    GridLayout:
-        cols: 2
-        Button:
-            text: "back"
-            on_release:
-                app.root.current = "newgoal_name"
-                root.manager.transition.direction = "right"
-        Button:
-            text: "next"
-            on_release:
-                app.root.current = "newgoal_reminders"
-                root.manager.transition.direction = "left"
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "top"
+
+        BoxLayout:
+            size_hint: 1, 0.15
+            orientation: "vertical"
+            Label:
+                text: "How many times would you"
+                font_size: "60"
+            Label:
+                text: "like to achive this goal?"
+                font_size: "60"
+
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "center"
+
+        GridLayout:
+            size_hint: 0.3, 0.17
+            cols: 2
+            padding: 0, 0
+
+            TextInput:
+                id: goal_achive_number
+                multiline: False
+                hint_text: "10"
+                hint_font_size: 60
+
+            GridLayout:
+                cols: 1
+                padding: 0, 0
+
+                Button:
+                    text: "^"
+
+                Button:
+                    text: "v"
+
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "bottom"
+        GridLayout:
+            size_hint: 1, 0.1
+            cols: 2
+            Button:
+                text: "back"
+                on_release:
+                    app.root.current = "newgoal_name"
+                    root.manager.transition.direction = "right"
+            Button:
+                text: "next"
+                on_release:
+                    app.root.current = "newgoal_reminders"
+                    root.manager.transition.direction = "left"
 
 #screen for setting reminder time and day
 <NewGoal_Reminders>:
     name: "newgoal_reminders"
 
-    GridLayout:
-        cols: 2
-        Button:
-            text: "back"
-            on_release:
-                app.root.current = "newgoal_times"
-                root.manager.transition.direction = "right"
-        Button:
-            text: "next"
-            on_release:
-                app.root.current = "newgoal"
-                root.manager.transition.direction = "up"
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "top"
+        BoxLayout:
+            size_hint: 1, 0.2
+            orientation: "vertical"
+            Label:
+                text: "How frequently would you"
+                font_size: 60
+            Label:
+                text: "like to be reminded of"
+                font_size: 60
+            Label:
+                text: "this goal?"
+                font_size: 60
+
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "center"
+        GridLayout:
+            cols: 7
+
+
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "bottom"
+        GridLayout:
+            cols: 2
+            size_hint: 1, 0.1
+            Button:
+                text: "back"
+                on_release:
+                    app.root.current = "newgoal_times"
+                    root.manager.transition.direction = "right"
+            Button:
+                text: "next"
+                on_release:
+                    app.root.current = "newgoal"
+                    root.manager.transition.direction = "up"

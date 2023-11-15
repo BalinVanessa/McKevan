@@ -5,6 +5,14 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.config import Config
+
+#setting the window at a fixed size of 400, 700 and making it so that it cannot be resized
+_fixed_size = (400, 700)
+def reSize(*args):
+   Window.size = _fixed_size
+   return True
+Window.bind(on_resize = reSize)
 
 #Screens -
 #home screen
@@ -46,6 +54,7 @@ class MyApp(App):
     def build(self):
         #makes the window white
         Window.clearcolor = (1, 1, 1, 1)
+        Window.size = (400, 700)
         return kv
 if __name__ == '__main__':
     MyApp().run()
