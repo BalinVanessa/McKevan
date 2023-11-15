@@ -1,0 +1,70 @@
+WindowManager:
+    HomeScreen:
+    ActiveGoalScreen:
+    NewGoalScreen:
+
+<HomeScreen>:
+    name: "home"
+
+    FloatLayout:
+        GridLayout:
+            pos_hint: {"bottom": 0}
+            size_hint: 1, 0.1
+            cols: 3
+            Button:
+                text: "home"
+                disabled: True
+            Button:
+                text: "active goals"
+                on_release:
+                    app.root.current = "active"
+                    root.manager.transition.direction = "left"
+            Button:
+                text: "add goal"
+                on_release:
+                    app.root.current = "newgoal"
+                    root.manager.transition.direction = "left"
+
+<ActiveGoalScreen>:
+    name: "active"
+
+    FloatLayout:
+        GridLayout:
+            pos_hint: {"bottom": 0}
+            size_hint: 1, 0.1
+            cols: 3
+            Button:
+                text: "home"
+                on_release:
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+            Button:
+                text: "active goals"
+                disabled: True
+            Button:
+                text: "add goal"
+                on_release:
+                    app.root.current = "newgoal"
+                    root.manager.transition.direction = "left"
+
+<NewGoalScreen>:
+    name: "newgoal"
+
+    FloatLayout:
+        GridLayout:
+            pos_hint: {"bottom": 0}
+            size_hint: 1, 0.1
+            cols: 3
+            Button:
+                text: "home"
+                on_release:
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+            Button:
+                text: "active goals"
+                on_release:
+                    app.root.current = "active"
+                    root.manager.transition.direction = "right"
+            Button:
+                text: "add goal"
+                disabled: True
