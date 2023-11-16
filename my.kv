@@ -126,27 +126,63 @@ WindowManager:
             size_hint_y: 0.3
             source: "images/fish/5.png"
 
-    # nav bar (active goal)
+    # nav bar (active goal) & bottom elements
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "bottom"
-        GridLayout:
-            pos_hint: {"bottom": 0}
-            size_hint: 1, 0.1
-            cols: 3
+
+        BoxLayout:
+            size_hint: 1, 0.3
+            orientation: "vertical"
+            spacing: 10
+            pos_hint: {'center_x':0.5}
+
             Button:
-                text: "home"
-                on_release:
-                    app.root.current = "home"
-                    root.manager.transition.direction = "right"
+                text: "Log Progress"
+                size_hint_x: 0.3
+                pos_hint: {'center_x':0.5}
             Button:
-                text: "active goals"
-                disabled: True
-            Button:
-                text: "add goal"
-                on_release:
-                    app.root.current = "newgoal"
-                    root.manager.transition.direction = "left"
+                text: "Flush Fish"
+                size_hint_x: 0.3
+                pos_hint: {'center_x':0.5}
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_x: 0.6
+                pos_hint: {'center_x':0.5}
+                Button:
+                    background_color: 1, 1, 1, 1
+                    border: (0, 0, 0, 0)
+                    background_normal: "images/arrow_left.png"
+                    background_down: "images/arrow_left.png"
+                    size_hint_x: 0.3
+                Label:
+                    text:
+                        "* * *"
+                Button:
+                    background_color: 1, 1, 1, 1
+                    background_normal: "images/arrow_right.png"
+                    background_down: "images/arrow_right.png"
+                    border: (0, 0, 0, 0)
+                    size_hint_x: 0.3
+
+
+            GridLayout:
+                pos_hint: {"bottom": 0}
+                cols: 3
+                size_hint: 1, 1.6
+                Button:
+                    text: "home"
+                    on_release:
+                        app.root.current = "home"
+                        root.manager.transition.direction = "right"
+                Button:
+                    text: "active goals"
+                    disabled: True
+                Button:
+                    text: "add goal"
+                    on_release:
+                        app.root.current = "newgoal"
+                        root.manager.transition.direction = "left"
 
 #Screen for new goals
 <NewGoalScreen>:
@@ -170,6 +206,7 @@ WindowManager:
             background_color: 1, 1, 1, 1
             background_normal: "images/plus_button.png"
             background_down: "images/plus_button.png"
+            border: (0, 0, 0, 0)
             size_hint: 0.3, 0.17
             on_release:
                 app.root.current = "newgoal_name"
