@@ -28,16 +28,27 @@ WindowManager:
     #id to switching to this screen
     name: "home"
 
+    Image:
+        source: "images/home_background.jpg"
+        size: root.width, root.height
+
     #button to acess my fish screen
     AnchorLayout:
         anchor_x: "left"
         anchor_y: "top"
+        padding: 10, 10
         Button:
             text: "My Fish"
-            size_hint: 0.2, 0.1
+            size_hint: 0.33, 0.1
             on_release:
                 app.root.current = "myfish"
                 root.manager.transition.direction = "down"
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 0, 0.5
+                Line:
+                    width: 4
+                    rectangle: self.x, self.y, self.width, self.height
 
     # nav bar (home)
     AnchorLayout:
@@ -231,7 +242,7 @@ WindowManager:
         anchor_y: "center"
 
         GridLayout:
-            size_hint: 0.3, 0.17
+            size_hint: 0.45, 0.17
             cols: 2
             padding: 0, 0
 
