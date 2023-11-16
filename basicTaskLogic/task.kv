@@ -39,7 +39,8 @@
         Button:
             id: prev_task_button
             text: "Previous Task"
-            # Starts it off disabled cause we start on the first task
+            # Starts it off disabled and invisible cause we start on the first task
             disabled: True
+            opacity: 0
             font_size: 32
             on_press: root.prevTask()

@@ -123,8 +123,8 @@ class TaskScreen(Widget):
             self.ids.flush_fish_button.opacity = 1
 
 
-        # If there are no tasks, show none of the buttons
-        if len(taskList) == 0:
+        # If there are no tasks or only one task, show none of the prev/next buttons
+        if len(taskList) == 0 or len(taskList) == 1:
             self.ids.prev_task_button.disabled = True
             self.ids.prev_task_button.opacity = 0
 
