@@ -129,6 +129,7 @@ WindowManager:
         anchor_x: "center"
         anchor_y: "center"
         Image:
+            id: goal_fish_img
             size_hint_y: 0.3
             source: "images/fish/5.png"
 
@@ -168,6 +169,8 @@ WindowManager:
                 Button:
                     id: prev_task_button
                     on_press: root.prevTask()
+                    opacity: 0
+                    disabled: True
                     background_color: 1, 1, 1, 1
                     border: (0, 0, 0, 0)
                     background_normal: "images/arrow_left.png"
@@ -175,8 +178,9 @@ WindowManager:
                     size_hint_x: 0.3
                 #TODO: Active goal index
                 Label:
+                    id: active_goal_index
                     text:
-                        "* * *"
+                        "o x x"
                 #right arrow
                 Button:
                     id: next_task_button

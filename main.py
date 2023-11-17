@@ -1,4 +1,5 @@
 import kivy
+import math
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -49,6 +50,17 @@ class ActiveGoalScreen(Screen):
     currentTask = taskList[index]
     currentProgress = f'{currentTask.progressNum} / {currentTask.totalNum}'
 
+    # Function that updates the fish image based on the current task's progress
+    def getFishImage(self):
+        # calculate the number of progress (percentage of progress rounded down to nearest int)
+        imgNum = math.floor((self.currentTask.progressNum / self.currentTask.totalNum) * 10)
+        # if number is 0 or there are no tasks available, set it to the empty fish image
+        if (imgNum == 0) or (len(taskList) == 0):
+            self.ids.goal_fish_img.source = "images/fish/1.png"
+        else:
+            # Get the image corresponding to the progress percentage
+            self.ids.goal_fish_img.source = f'images/fish/{imgNum}.png'
+
     # Function that logs the progress for the current Task
     def logProgress(self):
         # Adds 1 to the progress number and updates the labels
@@ -64,12 +76,14 @@ class ActiveGoalScreen(Screen):
 
         # Update Labels
         self.updateLabels()
+        self.getFishImage()
 
     # Function that flushes the fish and updates the screen to a different goal afterwards
     def flushFish(self):
         taskList.remove(self.currentTask)
         self.updateIndex()
         self.updateLabels()
+        self.getFishImage()
         self.updateTaskButtons()
 
     # Function to update index after a task is removed/completed
@@ -92,6 +106,8 @@ class ActiveGoalScreen(Screen):
         # using the id of the label in the kv file, change label's text to the task's title
         self.updateLabels()
 
+        self.getFishImage()
+
         # will disable the "next task" button if we are on the last task and hide it (minimal design)
         # or will re-enable the "previous task" button if we are no longer on the first task
         self.updateTaskButtons()
@@ -104,6 +120,9 @@ class ActiveGoalScreen(Screen):
         #get the new current task
         self.currentTask = taskList[self.index]
 
+        # update the fish image
+        self.getFishImage()
+
         # using the id of the label in the kv file, change label's text to the task's title
         self.updateLabels()
 
@@ -114,14 +133,34 @@ class ActiveGoalScreen(Screen):
     # Function that updates the labels on the screen
     def updateLabels(self):
         if len(taskList) == 0:
-            self.ids.goal_title_label.text = "No active goals! Make a new one!"
-            self.ids.goal_progress_label.opacity = 0
+            self.ids.goal_title_label.text = "No active goals!"
+            self.ids.goal_progress_label.text = "Go to Add Goal!"
+            self.ids.active_goal_index.text = ""
         else:
             cTask = self.currentTask
             # Update Task Title
             self.ids.goal_title_label.text = cTask.title
             # Update Progress Label
             self.ids.goal_progress_label.text = f'{cTask.progressNum} / {cTask.totalNum}'
+
+            # Update Active Goal Index
+            # Initialize an empty String
+            indexString = ""
+            # for the amount of active tasks available...
+            for x in range(len(taskList)):
+                # if we are on the active task, set index to a "o"
+                if x == self.index:
+                    indexString += "o"
+                else:
+                    # set other indexes to x
+                    indexString += "x"
+
+                # Adds a space between the index symbols (unless it's the last task index)
+                if x != (len(taskList) - 1):
+                    indexString += " "
+            # Set active goal index to the indexString
+            self.ids.active_goal_index.text = indexString
+                
 
 
     # Function that updates the state of the buttons:
