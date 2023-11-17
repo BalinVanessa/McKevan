@@ -378,27 +378,13 @@ WindowManager:
         BoxLayout:
             orientation: "horizontal"
             spacing: 10
-            size_hint: 0.3, 0.15
+            size_hint: 0.3, 0.1
 
             TextInput:
-                id: goal_achive_number
+                id: goal_achieve_number
                 multiline: False
-                hint_text: "10"
-
-            BoxLayout:
-                orientation: "vertical"
-                spacing: 10
-                size_hint_x: 0.33
-                Button:
-                    background_color: 1, 1, 1, 1
-                    background_normal: "images/arrow_up.png"
-                    background_down: "images/arrow_up.png"
-                    border: (0, 0, 0, 0)
-                Button:
-                    background_color: 1, 1, 1, 1
-                    background_normal: "images/arrow_down.png"
-                    background_down: "images/arrow_down.png"
-                    border: (0, 0, 0, 0)
+                text: "10"
+                font_size: 100
 
     # back and forward buttons 
     AnchorLayout:
@@ -415,7 +401,7 @@ WindowManager:
             Button:
                 text: "next"
                 on_release:
-                    app.root.current = "newgoal_reminders"
+                    app.root.current = "newgoal_reminders" if root.new_goal_next() else "newgoal_times"
                     root.manager.transition.direction = "left"
 
 #screen for setting reminder time and day
@@ -577,5 +563,5 @@ WindowManager:
             Button:
                 text: "next"
                 on_release:
-                    app.root.current = "newgoal" if root.new_goal_nex_reminders() else "newgoal_reminders"
+                    app.root.current = "newgoal" if root.new_goal_next_reminders() else "newgoal_reminders"
                     root.manager.transition.direction = "up"

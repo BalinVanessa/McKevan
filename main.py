@@ -228,12 +228,10 @@ class NewGoal_Name(Screen):
     def goal_name_preset(self, preset_name):
         self.goal_name = preset_name
 
-
     def new_goal_next_name(self):
         if self.ids.goal_name_entry.text:
             self.goal_name = self.ids.goal_name_entry.text
 
-        print(self.goal_name)
         if not self.goal_name:
             #add popup window
             return False
@@ -245,7 +243,26 @@ class NewGoal_Name(Screen):
 
 #times to achive goal
 class NewGoal_Times(Screen):
-    pass
+    times_achieved = None
+
+    def new_goal_next(self):
+        self.times_achieved = self.ids.goal_achieve_number.text
+
+        if self.times_achieved.isdigit():
+            self.times_achieved = int(self.times_achieved)
+            if self.times_achieved == 0:
+                #display popup
+                return False
+            else:
+                #add to goal
+                self.ids.goal_achieve_number.text = "10"
+                self.times_achieved = None
+                return True
+        else:
+            #display popup
+            return False
+
+
 #reminders of goal
 class NewGoal_Reminders(Screen):
     am_pm_index = 1
