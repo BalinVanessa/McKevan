@@ -1,3 +1,4 @@
+#:kivy 2.2.1
 #root manager for all screens
 WindowManager:
     HomeScreen:
@@ -111,13 +112,15 @@ WindowManager:
             #goal name
             #wraps up to 2 lines (about 50 char)
             Label:
-                text: "Attend Club Meeting"
+                id: goal_title_label
+                text: root.currentTask.title
                 text_size: self.size
                 font_size: 60
                 halign: 'center'
             # achieved count
             Label:
-                text: "5 / 10"
+                id: goal_progress_label
+                text: root.currentProgress
                 font_size: 40
 
     # image of the fish which is being revealed
@@ -142,12 +145,16 @@ WindowManager:
 
             #Log Progress Button
             Button:
+                id: log_progress_button
+                on_press: root.logProgress()
                 text: "Log Progress"
                 size_hint_x: 0.3
                 pos_hint: {'center_x':0.5}
 
             #Delete Goal Button
             Button:
+                id: flush_fish_button
+                on_press: root.flushFish()
                 text: "Flush Fish"
                 size_hint_x: 0.3
                 pos_hint: {'center_x':0.5}
@@ -159,6 +166,8 @@ WindowManager:
                 pos_hint: {'center_x':0.5}
                 #left arrow
                 Button:
+                    id: prev_task_button
+                    on_press: root.prevTask()
                     background_color: 1, 1, 1, 1
                     border: (0, 0, 0, 0)
                     background_normal: "images/arrow_left.png"
@@ -170,6 +179,8 @@ WindowManager:
                         "* * *"
                 #right arrow
                 Button:
+                    id: next_task_button
+                    on_press: root.nextTask()
                     background_color: 1, 1, 1, 1
                     background_normal: "images/arrow_right.png"
                     background_down: "images/arrow_right.png"
