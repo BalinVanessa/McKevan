@@ -21,16 +21,18 @@ Window.bind(on_resize = reSize)
 # progressNum: # of times task has been done
 # totalNum: total # of times task has to be done
 class Task:
-    def __init__(self, title, progressNum, totalNum):
+    def __init__(self, title, progressNum, totalNum, reminders):
         self.title = title
         self.progressNum = progressNum
         self.totalNum = totalNum
+        self.reminders = reminders
 
 # Create a list with any already existing Tasks (can be empty if we want
 # users to start with none like a new user)
-taskList = [Task("Attend Club Meeting", 5, 10), Task("Call Mom", 1, 10), Task("Text Friend", 2, 5)]
+taskList = [Task("Attend Club Meeting", 5, 10, None), Task("Call Mom", 1, 10, None), Task("Text Friend", 2, 5, None)]
 # Create list that houses completed tasks
 completedTaskList = []
+New_Task = Task(None, None, None, None)
 
 #Screens -
 #home screen
@@ -227,16 +229,20 @@ class NewGoal_Name(Screen):
 
     def goal_name_preset(self, preset_name):
         self.goal_name = preset_name
+        New_Task.title = self.goal_name
+        self.goal_name = ""
+        self.ids.goal_name_entry.text = ""
 
     def new_goal_next_name(self):
         if self.ids.goal_name_entry.text:
             self.goal_name = self.ids.goal_name_entry.text
-
         if not self.goal_name:
             #add popup window
             return False
         else:
             #add to new goal
+            New_Task.title = self.goal_name
+            #reset values
             self.goal_name = ""
             self.ids.goal_name_entry.text=""
             return True
@@ -255,6 +261,8 @@ class NewGoal_Times(Screen):
                 return False
             else:
                 #add to goal
+                New_Task.totalNum = self.times_achieved
+                #reset numbers
                 self.ids.goal_achieve_number.text = "10"
                 self.times_achieved = None
                 return True
@@ -329,7 +337,22 @@ class NewGoal_Reminders(Screen):
             #popup saying you need to select a day
             return False
         else:
-            #create new goal here
+            # add reminders to goal
+            New_Task.reminders = "User will be reminded "
+            for i in self.checked_weekdays:
+                New_Task.reminders += i + ", "
+            New_Task.reminders += "at " + str(self.hours_options[self.hours_index])
+            New_Task.reminders += ":" + str(self.minuets_options[self.minuets_index])
+            New_Task.reminders += " " +  str(self.am_pm_options[self.am_pm_index])
+
+            print("New Task reminder:", New_Task.reminders)
+
+            New_Task.progressNum = 0
+
+            #add new goal to active goals
+            taskList.append(New_Task)
+
+            #reset checkboxes and labels
             for x in list([self.ids.check_mon, self.ids.check_tue, self.ids.check_wed, self.ids.check_thurs,
                            self.ids.check_fri, self.ids.check_sat, self.ids.check_sun]):
                 if x.active:

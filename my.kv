@@ -561,7 +561,7 @@ WindowManager:
                     root.manager.transition.direction = "right"
 
             Button:
-                text: "next"
+                text: "Submit"
                 on_release:
                     app.root.current = "newgoal" if root.new_goal_next_reminders() else "newgoal_reminders"
                     root.manager.transition.direction = "up"
