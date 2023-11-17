@@ -84,7 +84,7 @@ WindowManager:
         anchor_y: "top"
         Label:
             text: "My Fish"
-            font_size: 60
+            font_size: 40
 
     # button for returning to home screen
     AnchorLayout:
@@ -92,7 +92,7 @@ WindowManager:
         anchor_y: "top"
         Button:
             text: "X"
-            font_size: 60
+            font_size: 40
             size_hint: 0.1, 0.1
             on_release:
                 app.root.current = "home"
@@ -115,7 +115,7 @@ WindowManager:
                 id: goal_title_label
                 text: root.currentTask.title
                 text_size: self.size
-                font_size: 60
+                font_size: 40
                 halign: 'center'
             # achieved count
             Label:
@@ -221,7 +221,7 @@ WindowManager:
         anchor_x: "center"
         anchor_y: "top"
         Label:
-            font_size: 60
+            font_size: 40
             size_hint: 0.3, 0.3
             text: "Add New Goal"
 
@@ -274,7 +274,7 @@ WindowManager:
 
         Label:
             text: "What is your goal?"
-            font_size: 60
+            font_size: 40
         Label:
             text: "Write a custom goal"
             font_size: 40
@@ -287,7 +287,7 @@ WindowManager:
             pos_hint: {"center_x":0.5}
         Label:
             text: "or"
-            font_size: 60
+            font_size: 40
 
         #Goal Presets
         Label:
@@ -365,10 +365,10 @@ WindowManager:
             orientation: "vertical"
             Label:
                 text: "How many times would you"
-                font_size: "60"
+                font_size: 40
             Label:
                 text: "like to achive this goal?"
-                font_size: "60"
+                font_size: 40
 
     #Number entry for number to achive
     AnchorLayout:
@@ -384,7 +384,7 @@ WindowManager:
                 id: goal_achieve_number
                 multiline: False
                 text: "10"
-                font_size: 100
+                font_size: 40
 
     # back and forward buttons 
     AnchorLayout:
@@ -417,13 +417,13 @@ WindowManager:
             orientation: "vertical"
             Label:
                 text: "How frequently would you"
-                font_size: 60
+                font_size: 40
             Label:
                 text: "like to be reminded of"
-                font_size: 60
+                font_size: 40
             Label:
                 text: "this goal?"
-                font_size: 60
+                font_size: 40
 
     AnchorLayout:
         anchor_x: "center"
