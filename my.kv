@@ -1,5 +1,6 @@
 #root manager for all screens
 WindowManager:
+    id: "wm"
     HomeScreen:
     ActiveGoalScreen:
     NewGoalScreen:
@@ -198,7 +199,7 @@ WindowManager:
             size_hint: 0.3, 0.3
             text: "Add New Goal"
 
-    #add a new goal button (not functional)
+    #add a new goal button
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "center"
@@ -364,9 +365,97 @@ WindowManager:
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "center"
-        GridLayout:
-            cols: 7
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 0.8, 0.35
+            spacing: 30
 
+            BoxLayout:
+                orientation: "horizontal"
+
+                BoxLayout:
+                    orientation: "vertical"
+                    Image:
+                        source: "images/arrow_up.png"
+                        border: (0, 0, 0, 0)
+                        size_hint_x: 0.2
+                        pos_hint: {'center_x':0.5}
+                    Label:
+                        text: "3"
+                        font_size: 80
+                    Image:
+                        source: "images/arrow_down.png"
+                        border: (0, 0, 0, 0)
+                        size_hint_x: 0.2
+                        pos_hint: {'center_x':0.5}
+                Image:
+                    size_hint_x: 0.05
+                    source: "images/clock_colon.png"
+                    border: (0, 0, 0, 0)
+                BoxLayout:
+                    orientation: "vertical"
+                    Image:
+                        source: "images/arrow_up.png"
+                        border: (0, 0, 0, 0)
+                        size_hint_x: 0.2
+                        pos_hint: {'center_x':0.5}
+                    Label:
+                        text: "45"
+                        font_size: 80
+                    Image:
+                        source: "images/arrow_down.png"
+                        border: (0, 0, 0, 0)
+                        size_hint_x: 0.2
+                        pos_hint: {'center_x':0.5}
+                BoxLayout:
+                    orientation: "vertical"
+                    Image:
+                        source: "images/arrow_up.png"
+                        border: (0, 0, 0, 0)
+                        size_hint_x: 0.2
+                        pos_hint: {'center_x':0.5}
+                    Label:
+                        text: "PM"
+                        font_size: 80
+                    Image:
+                        source: "images/arrow_down.png"
+                        border: (0, 0, 0, 0)
+                        size_hint_x: 0.2
+                        pos_hint: {'center_x':0.5}
+
+            GridLayout:
+                cols: 7
+                size_hint_y: 0.35
+
+                CheckBox:
+                    on_active: app.reminder_check_click(self, self.active, "monday")
+                CheckBox:
+                    on_active: app.reminder_check_click(self, self.active, "tuesday")
+                CheckBox:
+                    on_active: app.reminder_check_click(self, self.active, "wednesday")
+                CheckBox:
+                    on_active: app.reminder_check_click(self, self.active, "thursday")
+                CheckBox:
+                    on_active: app.reminder_check_click(self, self.active, "friday")
+                CheckBox:
+                    on_active: app.reminder_check_click(self, self.active, "saturday")
+                CheckBox:
+                    on_active: app.reminder_check_click(self, self.active, "sunday")
+
+                Label:
+                    text: "Mon"
+                Label:
+                    text: "Tue"
+                Label:
+                    text: "Wed"
+                Label:
+                    text: "Thu"
+                Label:
+                    text: "Fri"
+                Label:
+                    text: "Sat"
+                Label:
+                    text: "Sun"
 
     AnchorLayout:
         anchor_x: "center"
@@ -379,8 +468,9 @@ WindowManager:
                 on_release:
                     app.root.current = "newgoal_times"
                     root.manager.transition.direction = "right"
+
             Button:
                 text: "next"
                 on_release:
-                    app.root.current = "newgoal"
+                    app.root.current = "newgoal" if app.new_goal_next() else "newgoal_reminders"
                     root.manager.transition.direction = "up"

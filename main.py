@@ -3,6 +3,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
+from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.config import Config
@@ -46,11 +47,34 @@ class NewGoal_Reminders(Screen):
 class WindowManager(ScreenManager):
     pass
 
+class Hours(Label):
+    pass
+
+class Minuets(Label):
+    pass
+
+class AM_PM(Label):
+    pass
+
 #Line which builds the kv file
 kv = Builder.load_file("my.kv")
 
 #main function
 class MyApp(App):
+    checked_weekdays = []
+    def reminder_check_click(self, instance, value, weekday):
+        if value:
+            MyApp.checked_weekdays.append(weekday)
+            #print(MyApp.checked_weekdays)
+        else:
+            MyApp.checked_weekdays.remove(weekday)
+
+    def new_goal_next(self):
+        if not MyApp.checked_weekdays:
+            return False
+        else:
+            return True
+
     def build(self):
         #makes the window white
         Window.clearcolor = (1, 1, 1, 1)
