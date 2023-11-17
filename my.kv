@@ -281,7 +281,7 @@ WindowManager:
 
         #Custom goal entry box
         TextInput:
-            id: goal_name
+            id: goal_name_entry
             multiline: False
             size_hint_x: 0.8
             pos_hint: {"center_x":0.5}
@@ -294,25 +294,45 @@ WindowManager:
             text: "Choose a preset"
             font_size: 40
         Button:
-            text: "text someone first"
+            text: "Text Someone First"
             size_hint_x: 0.8
             pos_hint: {"center_x":0.5}
+            on_press: root.goal_name_preset("Text Someone First")
+            on_release:
+                app.root.current = "newgoal_times"
+                root.manager.transition.direction = "left"
         Button:
-            text: "call a family memeber"
+            text: "Call a Family Member"
             size_hint_x: 0.8
             pos_hint: {"center_x":0.5}
+            on_press: root.goal_name_preset("Call a Family Member")
+            on_release:
+                app.root.current = "newgoal_times"
+                root.manager.transition.direction = "left"
         Button:
-            text: "compliment a friend"
+            text: "Compliment a Friend"
             size_hint_x: 0.8
             pos_hint: {"center_x":0.5}
+            on_press: root.goal_name_preset("Compliment a Friend")
+            on_release:
+                app.root.current = "newgoal_times"
+                root.manager.transition.direction = "left"
         Button:
-            text: "attend a club"
+            text: "Attend a Club"
             size_hint_x: 0.8
             pos_hint: {"center_x":0.5}
+            on_press: root.goal_name_preset("Attend a Club")
+            on_release:
+                app.root.current = "newgoal_times"
+                root.manager.transition.direction = "left"
         Button:
-            text: "try something new with someone"
+            text: "Try Something New With Someone"
             size_hint_x: 0.8
             pos_hint: {"center_x":0.5}
+            on_press: root.goal_name_preset("Try Something New With Someone")
+            on_release:
+                app.root.current = "newgoal_times"
+                root.manager.transition.direction = "left"
 
         #back and forward buttons
         GridLayout:
@@ -327,7 +347,7 @@ WindowManager:
             Button:
                 text: "next"
                 on_release:
-                    app.root.current = "newgoal_times"
+                    app.root.current = "newgoal_times" if root.new_goal_next_name() else "newgoal_name"
                     root.manager.transition.direction = "left"
 
 #screen for setting number of times you want to achive
@@ -557,5 +577,5 @@ WindowManager:
             Button:
                 text: "next"
                 on_release:
-                    app.root.current = "newgoal" if root.new_goal_next() else "newgoal_reminders"
+                    app.root.current = "newgoal" if root.new_goal_nex_reminders() else "newgoal_reminders"
                     root.manager.transition.direction = "up"

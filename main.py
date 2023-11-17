@@ -223,7 +223,26 @@ class NewGoalScreen(Screen):
 #new goal form
 #name of goal
 class NewGoal_Name(Screen):
-    pass
+    goal_name = ""
+
+    def goal_name_preset(self, preset_name):
+        self.goal_name = preset_name
+
+
+    def new_goal_next_name(self):
+        if self.ids.goal_name_entry.text:
+            self.goal_name = self.ids.goal_name_entry.text
+
+        print(self.goal_name)
+        if not self.goal_name:
+            #add popup window
+            return False
+        else:
+            #add to new goal
+            self.goal_name = ""
+            self.ids.goal_name_entry.text=""
+            return True
+
 #times to achive goal
 class NewGoal_Times(Screen):
     pass
@@ -288,7 +307,7 @@ class NewGoal_Reminders(Screen):
         else:
             self.checked_weekdays.remove(weekday)
 
-    def new_goal_next(self):
+    def new_goal_next_reminders(self):
         if not self.checked_weekdays:
             #popup saying you need to select a day
             return False
