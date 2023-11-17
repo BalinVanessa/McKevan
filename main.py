@@ -47,15 +47,6 @@ class NewGoal_Reminders(Screen):
 class WindowManager(ScreenManager):
     pass
 
-class Hours(Label):
-    pass
-
-class Minuets(Label):
-    pass
-
-class AM_PM(Label):
-    pass
-
 #Line which builds the kv file
 kv = Builder.load_file("my.kv")
 

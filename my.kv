@@ -1,6 +1,5 @@
 #root manager for all screens
 WindowManager:
-    id: "wm"
     HomeScreen:
     ActiveGoalScreen:
     NewGoalScreen:
@@ -110,6 +109,7 @@ WindowManager:
             orientation: "vertical"
             size_hint_y: 0.3
             #goal name
+            #wraps up to 2 lines (about 50 char)
             Label:
                 text: "Attend Club Meeting"
                 text_size: self.size
@@ -120,6 +120,8 @@ WindowManager:
                 text: "5 / 10"
                 font_size: 40
 
+    # image of the fish which is being revealed
+    #TODO implement the fuction to change image source path
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "center"
@@ -127,7 +129,7 @@ WindowManager:
             size_hint_y: 0.3
             source: "images/fish/5.png"
 
-    # nav bar (active goal) & bottom elements
+    # nav bar (active goal) & buttons beneth Fish
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "bottom"
@@ -138,27 +140,35 @@ WindowManager:
             spacing: 10
             pos_hint: {'center_x':0.5}
 
+            #Log Progress Button
             Button:
                 text: "Log Progress"
                 size_hint_x: 0.3
                 pos_hint: {'center_x':0.5}
+
+            #Delete Goal Button
             Button:
                 text: "Flush Fish"
                 size_hint_x: 0.3
                 pos_hint: {'center_x':0.5}
+
+            #Arrows for navigating active goals and screen indicator
             BoxLayout:
                 orientation: "horizontal"
                 size_hint_x: 0.6
                 pos_hint: {'center_x':0.5}
+                #left arrow
                 Button:
                     background_color: 1, 1, 1, 1
                     border: (0, 0, 0, 0)
                     background_normal: "images/arrow_left.png"
                     background_down: "images/arrow_left.png"
                     size_hint_x: 0.3
+                #TODO: Active goal index
                 Label:
                     text:
                         "* * *"
+                #right arrow
                 Button:
                     background_color: 1, 1, 1, 1
                     background_normal: "images/arrow_right.png"
@@ -166,7 +176,7 @@ WindowManager:
                     border: (0, 0, 0, 0)
                     size_hint_x: 0.3
 
-
+            #nav bar (active goals)
             GridLayout:
                 pos_hint: {"bottom": 0}
                 cols: 3
@@ -240,6 +250,7 @@ WindowManager:
 <NewGoal_Name>:
     name: "newgoal_name"
 
+    #Title
     GridLayout:
         cols: 1
         Label:
@@ -248,12 +259,16 @@ WindowManager:
         Label:
             text: "Write a custom goal"
             font_size: 40
+
+        #Custom goal entry box
         TextInput:
             id: goal_name
             multiline: False
         Label:
             text: "or"
             font_size: 60
+
+        #Goal Presets
         Label:
             text: "Choose a preset"
             font_size: 40
@@ -268,6 +283,7 @@ WindowManager:
         Button:
             text: "try something new with someone"
 
+        #back and forward buttons
         GridLayout:
             size_y: root.height * 0.1
             padding: 0, 0
@@ -287,6 +303,7 @@ WindowManager:
 <NewGoal_Times>:
     name: "newgoal_times"
 
+    #Title
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "top"
@@ -301,6 +318,7 @@ WindowManager:
                 text: "like to achive this goal?"
                 font_size: "60"
 
+    #Number entry for number to achive
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "center"
@@ -325,6 +343,7 @@ WindowManager:
                 Button:
                     text: "v"
 
+    # back and forward buttons 
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "bottom"
