@@ -176,11 +176,12 @@ WindowManager:
                     background_normal: "images/arrow_left.png"
                     background_down: "images/arrow_left.png"
                     size_hint_x: 0.3
-                #TODO: Active goal index
+
                 Label:
                     id: active_goal_index
                     text:
-                        "o x x"
+                        "o · ·"
+                    font_size: 40
                 #right arrow
                 Button:
                     id: next_task_button
@@ -266,8 +267,11 @@ WindowManager:
     name: "newgoal_name"
 
     #Title
-    GridLayout:
-        cols: 1
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 10
+        padding: 10, 20, 10, 10
+
         Label:
             text: "What is your goal?"
             font_size: 60
@@ -279,6 +283,8 @@ WindowManager:
         TextInput:
             id: goal_name
             multiline: False
+            size_hint_x: 0.8
+            pos_hint: {"center_x":0.5}
         Label:
             text: "or"
             font_size: 60
@@ -289,14 +295,24 @@ WindowManager:
             font_size: 40
         Button:
             text: "text someone first"
+            size_hint_x: 0.8
+            pos_hint: {"center_x":0.5}
         Button:
             text: "call a family memeber"
+            size_hint_x: 0.8
+            pos_hint: {"center_x":0.5}
         Button:
             text: "compliment a friend"
+            size_hint_x: 0.8
+            pos_hint: {"center_x":0.5}
         Button:
             text: "attend a club"
+            size_hint_x: 0.8
+            pos_hint: {"center_x":0.5}
         Button:
             text: "try something new with someone"
+            size_hint_x: 0.8
+            pos_hint: {"center_x":0.5}
 
         #back and forward buttons
         GridLayout:
@@ -322,6 +338,7 @@ WindowManager:
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "top"
+        padding: 20
 
         BoxLayout:
             size_hint: 1, 0.15
@@ -339,9 +356,9 @@ WindowManager:
         anchor_y: "center"
 
         BoxLayout:
-            size_hint: 0.4, 0.22
             orientation: "horizontal"
             spacing: 10
+            size_hint: 0.3, 0.15
 
             TextInput:
                 id: goal_achive_number
@@ -350,13 +367,18 @@ WindowManager:
 
             BoxLayout:
                 orientation: "vertical"
-                size_hint_x: 0.4
                 spacing: 10
+                size_hint_x: 0.33
                 Button:
-                    text: "^"
-
+                    background_color: 1, 1, 1, 1
+                    background_normal: "images/arrow_up.png"
+                    background_down: "images/arrow_up.png"
+                    border: (0, 0, 0, 0)
                 Button:
-                    text: "v"
+                    background_color: 1, 1, 1, 1
+                    background_normal: "images/arrow_down.png"
+                    background_down: "images/arrow_down.png"
+                    border: (0, 0, 0, 0)
 
     # back and forward buttons 
     AnchorLayout:
@@ -383,6 +405,7 @@ WindowManager:
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "top"
+        padding: 20
         BoxLayout:
             size_hint: 1, 0.2
             orientation: "vertical"
@@ -409,18 +432,22 @@ WindowManager:
 
                 BoxLayout:
                     orientation: "vertical"
-                    Image:
-                        source: "images/arrow_up.png"
+                    Button:
+                        background_color: 1, 1, 1, 1
+                        background_normal: "images/arrow_up.png"
+                        background_down: "images/arrow_up.png"
                         border: (0, 0, 0, 0)
-                        size_hint_x: 0.2
+                        size_hint: 0.25, 0.3
                         pos_hint: {'center_x':0.5}
                     Label:
                         text: "3"
                         font_size: 80
-                    Image:
-                        source: "images/arrow_down.png"
+                    Button:
+                        background_color: 1, 1, 1, 1
+                        background_normal: "images/arrow_down.png"
+                        background_down: "images/arrow_down.png"
                         border: (0, 0, 0, 0)
-                        size_hint_x: 0.2
+                        size_hint: 0.25, 0.3
                         pos_hint: {'center_x':0.5}
                 Image:
                     size_hint_x: 0.05
@@ -428,33 +455,41 @@ WindowManager:
                     border: (0, 0, 0, 0)
                 BoxLayout:
                     orientation: "vertical"
-                    Image:
-                        source: "images/arrow_up.png"
+                    Button:
+                        background_color: 1, 1, 1, 1
+                        background_normal: "images/arrow_up.png"
+                        background_down: "images/arrow_up.png"
                         border: (0, 0, 0, 0)
-                        size_hint_x: 0.2
+                        size_hint: 0.25, 0.3
                         pos_hint: {'center_x':0.5}
                     Label:
                         text: "45"
                         font_size: 80
-                    Image:
-                        source: "images/arrow_down.png"
+                    Button:
+                        background_color: 1, 1, 1, 1
+                        background_normal: "images/arrow_down.png"
+                        background_down: "images/arrow_down.png"
                         border: (0, 0, 0, 0)
-                        size_hint_x: 0.2
+                        size_hint: 0.25, 0.3
                         pos_hint: {'center_x':0.5}
                 BoxLayout:
                     orientation: "vertical"
-                    Image:
-                        source: "images/arrow_up.png"
+                    Button:
+                        background_color: 1, 1, 1, 1
+                        background_normal: "images/arrow_up.png"
+                        background_down: "images/arrow_up.png"
                         border: (0, 0, 0, 0)
-                        size_hint_x: 0.2
+                        size_hint: 0.25, 0.3
                         pos_hint: {'center_x':0.5}
                     Label:
                         text: "PM"
                         font_size: 80
-                    Image:
-                        source: "images/arrow_down.png"
+                    Button:
+                        background_color: 1, 1, 1, 1
+                        background_normal: "images/arrow_down.png"
+                        background_down: "images/arrow_down.png"
                         border: (0, 0, 0, 0)
-                        size_hint_x: 0.2
+                        size_hint: 0.25, 0.3
                         pos_hint: {'center_x':0.5}
 
             GridLayout:

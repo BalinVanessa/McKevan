@@ -153,7 +153,7 @@ class ActiveGoalScreen(Screen):
                     indexString += "o"
                 else:
                     # set other indexes to x
-                    indexString += "x"
+                    indexString += "·"
 
                 # Adds a space between the index symbols (unless it's the last task index)
                 if x != (len(taskList) - 1):
