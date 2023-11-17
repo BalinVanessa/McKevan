@@ -81,7 +81,9 @@ WindowManager:
     # title of screen (not currently in the correct position)
     AnchorLayout:
         anchor_x: "left"
-        anchor_y: "top"
+        anchor_y: "center"
+        size_hint: 0.2, 0.1
+        padding: 20
         Label:
             text: "My Fish"
             font_size: 40
@@ -93,7 +95,7 @@ WindowManager:
         Button:
             text: "X"
             font_size: 40
-            size_hint: 0.1, 0.1
+            size_hint: 0.2, 0.1
             on_release:
                 app.root.current = "home"
                 root.manager.transition.direction = "up"

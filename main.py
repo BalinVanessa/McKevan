@@ -21,18 +21,22 @@ Window.bind(on_resize = reSize)
 # progressNum: # of times task has been done
 # totalNum: total # of times task has to be done
 class Task:
-    def __init__(self, title, progressNum, totalNum, reminders):
+    def __init__(self, title, progressNum, totalNum, reminders, picNumber):
         self.title = title
         self.progressNum = progressNum
         self.totalNum = totalNum
         self.reminders = reminders
+        self.picNumber = picNumber
 
 # Create a list with any already existing Tasks (can be empty if we want
 # users to start with none like a new user)
-taskList = [Task("Attend Club Meeting", 5, 10, None), Task("Call Mom", 1, 10, None), Task("Text Friend", 2, 5, None)]
+taskList = [Task("Attend Club Meeting", 5, 10, "User will be reminded on Saturday at 4:24 PM", 8),
+            Task("Call Mom", 1, 10, "User will be reminded on Monday, Tuesday, at 7:0 AM", 9),
+            Task("Text Friend", 2, 5, "User will be reminded on Friday at 12:10 PM", 10)]
 # Create list that houses completed tasks
 completedTaskList = []
-New_Task = Task(None, None, None, None)
+#Task which will be edited to add to task list
+New_Task = Task(None, None, None, None, None)
 
 #Screens -
 #home screen
@@ -350,11 +354,19 @@ class NewGoal_Reminders(Screen):
 
             print("New Task reminder:", New_Task.reminders)
 
+            #user has done task 0 times
             New_Task.progressNum = 0
+
+            #add fish number for image source path
+            too_add = taskList[-1].picNumber + 1
+            if too_add == 11:
+                too_add = 1
+            New_Task.picNumber(too_add)
 
             #add new goal to active goals
             taskList.append(New_Task)
 
+            # resetting the reminders screen
             #reset checkboxes and labels
             for x in list([self.ids.check_mon, self.ids.check_tue, self.ids.check_wed, self.ids.check_thurs,
                            self.ids.check_fri, self.ids.check_sat, self.ids.check_sun]):
