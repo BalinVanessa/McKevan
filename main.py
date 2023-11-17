@@ -232,7 +232,7 @@ class NewGoal_Reminders(Screen):
     am_pm_index = 1
     am_pm_options = ["AM", "PM"]
 
-    minuets_index = 44
+    minuets_index = 45
     minuets_options = range(0, 60)
 
     hours_index = 2
@@ -280,6 +280,34 @@ class NewGoal_Reminders(Screen):
 
         self.ids.hours_label.text = str(self.hours_options[self.hours_index])
 
+    checked_weekdays = []
+    def reminder_check_click(self, instance, value, weekday):
+        if value:
+            self.checked_weekdays.append(weekday)
+            # print(MyApp.checked_weekdays)
+        else:
+            self.checked_weekdays.remove(weekday)
+
+    def new_goal_next(self):
+        if not self.checked_weekdays:
+            #popup saying you need to select a day
+            return False
+        else:
+            #create new goal here
+            for x in list([self.ids.check_mon, self.ids.check_tue, self.ids.check_wed, self.ids.check_thurs,
+                           self.ids.check_fri, self.ids.check_sat, self.ids.check_sun]):
+                if x.active:
+                    x.active = False
+
+            self.am_pm_index = 1
+            self.minuets_index = 45
+            self.hours_index = 2
+            self.ids.am_pm_label.text = self.am_pm_options[self.am_pm_index]
+            self.ids.minuets_label.text = str(self.minuets_options[self.minuets_index])
+            self.ids.hours_label.text = str(self.hours_options[self.hours_index])
+
+            return True
+
 
 #Screen Manager -
 class WindowManager(ScreenManager):
@@ -290,19 +318,6 @@ kv = Builder.load_file("my.kv")
 
 #main function
 class MyApp(App):
-    checked_weekdays = []
-    def reminder_check_click(self, instance, value, weekday):
-        if value:
-            MyApp.checked_weekdays.append(weekday)
-            #print(MyApp.checked_weekdays)
-        else:
-            MyApp.checked_weekdays.remove(weekday)
-
-    def new_goal_next(self):
-        if not MyApp.checked_weekdays:
-            return False
-        else:
-            return True
 
     def build(self):
         #makes the window white

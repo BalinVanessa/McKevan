@@ -506,19 +506,26 @@ WindowManager:
                 size_hint_y: 0.35
 
                 CheckBox:
-                    on_active: app.reminder_check_click(self, self.active, "monday")
+                    id: check_mon
+                    on_active: root.reminder_check_click(self, self.active, "monday")
                 CheckBox:
-                    on_active: app.reminder_check_click(self, self.active, "tuesday")
+                    id: check_tue
+                    on_active: root.reminder_check_click(self, self.active, "tuesday")
                 CheckBox:
-                    on_active: app.reminder_check_click(self, self.active, "wednesday")
+                    id: check_wed
+                    on_active: root.reminder_check_click(self, self.active, "wednesday")
                 CheckBox:
-                    on_active: app.reminder_check_click(self, self.active, "thursday")
+                    id: check_thurs
+                    on_active: root.reminder_check_click(self, self.active, "thursday")
                 CheckBox:
-                    on_active: app.reminder_check_click(self, self.active, "friday")
+                    id: check_fri
+                    on_active: root.reminder_check_click(self, self.active, "friday")
                 CheckBox:
-                    on_active: app.reminder_check_click(self, self.active, "saturday")
+                    id: check_sat
+                    on_active: root.reminder_check_click(self, self.active, "saturday")
                 CheckBox:
-                    on_active: app.reminder_check_click(self, self.active, "sunday")
+                    id: check_sun
+                    on_active: root.reminder_check_click(self, self.active, "sunday")
 
                 Label:
                     text: "Mon"
@@ -550,5 +557,5 @@ WindowManager:
             Button:
                 text: "next"
                 on_release:
-                    app.root.current = "newgoal" if app.new_goal_next() else "newgoal_reminders"
+                    app.root.current = "newgoal" if root.new_goal_next() else "newgoal_reminders"
                     root.manager.transition.direction = "up"
