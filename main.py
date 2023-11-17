@@ -229,7 +229,57 @@ class NewGoal_Times(Screen):
     pass
 #reminders of goal
 class NewGoal_Reminders(Screen):
-    pass
+    am_pm_index = 1
+    am_pm_options = ["AM", "PM"]
+
+    minuets_index = 44
+    minuets_options = range(0, 60)
+
+    hours_index = 2
+    hours_options = range(1, 12)
+
+    def am_pm_increase(self):
+        self.am_pm_index += 1
+        if self.am_pm_index == 2:
+            self.am_pm_index = 0
+
+        self.ids.am_pm_label.text = self.am_pm_options[self.am_pm_index]
+
+    def am_pm_decrease(self):
+        self.am_pm_index -= 1
+        if self.am_pm_index == -1:
+            self.am_pm_index = 1
+
+        self.ids.am_pm_label.text = self.am_pm_options[self.am_pm_index]
+
+    def minuets_increase(self):
+        self.minuets_index += 1
+        if self.minuets_index == 60:
+            self.minuets_index = 0
+
+        self.ids.minuets_label.text = str(self.minuets_options[self.minuets_index])
+
+    def minuets_decrease(self):
+        self.minuets_index -= 1
+        if self.minuets_index == -1:
+            self.minuets_index = 59
+
+        self.ids.minuets_label.text = str(self.minuets_options[self.minuets_index])
+
+    def hours_increase(self):
+        self.hours_index += 1
+        if self.hours_index == 11:
+            self.hours_index = 0
+
+        self.ids.hours_label.text = str(self.hours_options[self.hours_index])
+
+    def hours_decrease(self):
+        self.hours_index -= 1
+        if self.hours_index == -1:
+            self.hours_index = 10
+
+        self.ids.hours_label.text = str(self.hours_options[self.hours_index])
+
 
 #Screen Manager -
 class WindowManager(ScreenManager):
