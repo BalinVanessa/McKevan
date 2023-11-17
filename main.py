@@ -45,6 +45,8 @@ class MyFish(Screen):
 
 #active goal screen
 class ActiveGoalScreen(Screen):
+    def on_pre_enter(self):
+        self.updateLabels()
     # Current task we're on starting at 0
     index = 0
 
