@@ -117,7 +117,7 @@ class HomeScreen(Screen):
         # Find the center xy coordinates
         center_x = Window.width / 2
         center_y = Window.height / 2
-        scatter_radius = 400
+        scatter_radius = 275
 
         # Add fishes to screen
         for task in completedTaskList:
