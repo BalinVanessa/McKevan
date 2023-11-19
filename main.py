@@ -2,56 +2,180 @@ import kivy
 import math
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
-from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.config import Config
+from kivy.uix.image import Image
+from kivy.uix.label import Label
+from kivy.uix.popup import Popup
+from kivy.animation import Animation
+from kivy.clock import Clock
+import random
 
-#setting the window at a fixed size of 400, 700 and making it so that it cannot be resized
+# setting the window at a fixed size of 400, 700 and making it so that it cannot be resized
 _fixed_size = (400, 700)
+
+
 def reSize(*args):
-   Window.size = _fixed_size
-   return True
-Window.bind(on_resize = reSize)
+    Window.size = _fixed_size
+    return True
+
+
+Window.bind(on_resize=reSize)
+
 
 # Create Task Object that will house all the information about a Task
 # title: Task Title
 # progressNum: # of times task has been done
 # totalNum: total # of times task has to be done
 class Task:
-    def __init__(self, title, progressNum, totalNum, reminders, picNumber):
+    def __init__(self, title, progressNum, totalNum, reminders, picNumber, imagePath):
         self.title = title
         self.progressNum = progressNum
         self.totalNum = totalNum
         self.reminders = reminders
         self.picNumber = picNumber
+        self.imagePath = imagePath
+
+
+# A list of fish images corresponding specific tasks defined
+fish_images = {
+    "Call Mom": "images/completed1.png",
+    "Text Friend": "images/completed2.png",
+    "Facetime Mom": "images/completed3.png",
+    "Say happy birthday to Sam": "images/completed4.png",
+    "Go get dinner with Laura": "images/completed5.png",
+    "Ask how Jacob is feeling": "images/completed6.png",
+    "Call MeMaw": "images/completed7.png",
+    "Attend Basketball Practice": "images/completed8.png",
+    "Call Dad": "images/completed9.png",
+    "Call Friend": "images/completed10.png",
+    "Attend Tennis Meeting": "images/completed11.png",
+    "Attend Club Meeting": "images/completed1.png"
+}
 
 # Create a list with any already existing Tasks (can be empty if we want
 # users to start with none like a new user)
-taskList = [Task("Attend Club Meeting", 5, 10, "User will be reminded on Saturday at 4:24 PM", 8),
-            Task("Call Mom", 1, 10, "User will be reminded on Monday, Tuesday, at 7:0 AM", 9),
-            Task("Text Friend", 2, 5, "User will be reminded on Friday at 12:10 PM", 10)]
+taskList = [Task("Attend Club Meeting", 5, 10, "User will be reminded on Saturday at 4:24 PM", 8,
+                 fish_images["Attend Club Meeting"]),
+            Task("Call Mom", 1, 10, "User will be reminded on Monday, Tuesday, at 7:0 AM", 9, fish_images["Call Mom"]),
+            Task("Text Friend", 2, 5, "User will be reminded on Friday at 12:10 PM", 10, fish_images["Text Friend"])]
+
 # Create list that houses completed tasks
-completedTaskList = []
-#Task which will be edited to add to task list
-New_Task = Task(None, None, None, None, None)
+completedTaskList = [Task("Attend Tennis Meeting", 6, 12, "User will be reminded on Saturday at 4:24 PM", 10,
+                          fish_images["Attend Tennis Meeting"]),
+                     Task("Call Dad", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM", 10,
+                          fish_images["Call Dad"]),
+                     Task("Call Friend", 2, 7, "User will be reminded on Friday at 12:10 PM", 10,
+                          fish_images["Call Friend"]),
+                     Task("Facetime Mom", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM", 10,
+                          fish_images["Facetime Mom"]),
+                     #Task("Say happy birthday to Sam", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM", 10,
+                     #     fish_images["Say happy birthday to Sam"]),
+                     #Task("Go get dinner with Laura", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM", 10,
+                     #     fish_images["Go get dinner with Laura"]),
+                     #Task("Ask how Jacob is feeling", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM", 10,
+                     #     fish_images["Ask how Jacob is feeling"]),
+                     #Task("Attend Basketball Practice", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM", 10,
+                     #     fish_images["Attend Basketball Practice"]),
+                     ]
 
-#Screens -
-#home screen
+# Task which will be edited to add to task list
+New_Task = Task(None, None, None, None, None, None)
+
+
+# Defining pop-up function
+def show_popup(num):
+    errors = ['Cannot proceed without a task!!',
+              'Cannot have a goal with \n0 times of achievement!',
+              'You must enter a positive integer!!',
+              'You must select at least \none day to be reminded!!']
+
+    # Create the label with white text color
+    label = Label(text=errors[num], color=[1, 1, 1, 1])
+
+    # Create the popup with the label as its content
+    popup = Popup(title='Error',
+                  content=label,
+                  size_hint=(None, None), size=(500, 250))
+    popup.open()
+
+
+# Screens -
+# home screen
 class HomeScreen(Screen):
-    pass
+    def on_pre_enter(self, *args):
+        # Load the screen fully, then call populate_images method otherwise the app crashes
+        Clock.schedule_once(self.populate_images)
 
-#my fish screen
+    def populate_images(self, dt):
+        container = self.ids.image_container
+        container.clear_widgets()
+
+        # Find the center xy coordinates
+        center_x = Window.width / 2
+        center_y = Window.height / 2
+        scatter_radius = 400
+
+        # Add fishes to screen
+        for task in completedTaskList:
+            # Initialize the image at the center
+            #print(fish_images[task.title])
+            #print(task.imagePath)
+            img = Image(source=task.imagePath, size_hint=(None, None), size=('100dp', '100dp'))
+            img.center_x = center_x
+            img.center_y = center_y
+            container.add_widget(img)
+
+            # Calculate random offset coordinates
+            scatter_x = random.uniform(-scatter_radius, scatter_radius)
+            scatter_y = random.uniform(-scatter_radius, scatter_radius)
+
+            # Make the fishes move to new coordinates
+            Animation(center_x=img.center_x + scatter_x, center_y=img.center_y + scatter_y, t='out_quad').start(img)
+
+
+# my fish screen
 class MyFish(Screen):
+    def on_pre_enter(self, *args):
+        # Clear any existing widgets
+        self.ids.fish_container.clear_widgets()
+
+        # Add image widgets for each task
+        for task in completedTaskList:
+            # Create a horizontal BoxLayout for each task
+            task_box = BoxLayout(orientation='horizontal', size_hint_y=None, height='100dp')
+
+            # Add the image
+            image = Image(source=task.imagePath, size_hint=(None, None), size=('100dp', '100dp'))
+            task_box.add_widget(image)
+
+            # Add the task description
+            task_description = Label(text=task.title, size_hint=(1, None), height='100dp')
+            task_box.add_widget(task_description)
+
+            # Add the task box to the fish_container
+            self.ids.fish_container.add_widget(task_box)
+
+            # Create an instance of HorizontalLine that spans the full width
+            line = HorizontalLine(size_hint_x=1, height='2dp')
+            self.ids.fish_container.add_widget(line)
+
+
+# Horizontal Line
+class HorizontalLine(Label):
     pass
 
-#active goal screen
+
+# active goal screen
 class ActiveGoalScreen(Screen):
     def on_pre_enter(self):
         self.updateLabels()
         self.updateTaskButtons()
+
     # Current task we're on starting at 0
     index = 0
 
@@ -126,7 +250,7 @@ class ActiveGoalScreen(Screen):
         # decrease the taskList index
         self.index = self.index - 1
 
-        #get the new current task
+        # get the new current task
         self.currentTask = taskList[self.index]
 
         # update the fish image
@@ -169,8 +293,6 @@ class ActiveGoalScreen(Screen):
                     indexString += " "
             # Set active goal index to the indexString
             self.ids.active_goal_index.text = indexString
-                
-
 
     # Function that updates the state of the buttons:
     # If we are on the first task, the "previous task" button disappears
@@ -187,7 +309,6 @@ class ActiveGoalScreen(Screen):
             self.ids.log_progress_button.opacity = 1
             self.ids.flush_fish_button.disabled = False
             self.ids.flush_fish_button.opacity = 1
-
 
         # If there are no tasks or only one task, show none of the prev/next buttons
         if len(taskList) == 0 or len(taskList) == 1:
@@ -224,13 +345,13 @@ class ActiveGoalScreen(Screen):
             self.ids.next_task_button.opacity = 1
 
 
-
-#new goal page
+# new goal page
 class NewGoalScreen(Screen):
     pass
 
-#new goal form
-#name of goal
+
+# new goal form
+# name of goal
 class NewGoal_Name(Screen):
     goal_name = ""
 
@@ -244,17 +365,18 @@ class NewGoal_Name(Screen):
         if self.ids.goal_name_entry.text:
             self.goal_name = self.ids.goal_name_entry.text
         if not self.goal_name:
-            #add popup window
+            show_popup(0)
             return False
         else:
-            #add to new goal
+            # add to new goal
             New_Task.title = self.goal_name
-            #reset values
+            # reset values
             self.goal_name = ""
-            self.ids.goal_name_entry.text=""
+            self.ids.goal_name_entry.text = ""
             return True
 
-#times to achive goal
+
+# times to achive goal
 class NewGoal_Times(Screen):
     times_achieved = None
 
@@ -264,21 +386,21 @@ class NewGoal_Times(Screen):
         if self.times_achieved.isdigit():
             self.times_achieved = int(self.times_achieved)
             if self.times_achieved == 0:
-                #display popup
+                show_popup(1)  # Show popup if the condition is met
                 return False
             else:
-                #add to goal
+                # add to goal
                 New_Task.totalNum = self.times_achieved
-                #reset numbers
+                # reset numbers
                 self.ids.goal_achieve_number.text = "10"
                 self.times_achieved = None
                 return True
         else:
-            #display popup
+            show_popup(2)
             return False
 
 
-#reminders of goal
+# reminders of goal
 class NewGoal_Reminders(Screen):
     am_pm_index = 1
     am_pm_options = ["AM", "PM"]
@@ -332,6 +454,7 @@ class NewGoal_Reminders(Screen):
         self.ids.hours_label.text = str(self.hours_options[self.hours_index])
 
     checked_weekdays = []
+
     def reminder_check_click(self, instance, value, weekday):
         if value:
             self.checked_weekdays.append(weekday)
@@ -341,7 +464,8 @@ class NewGoal_Reminders(Screen):
 
     def new_goal_next_reminders(self):
         if not self.checked_weekdays:
-            #popup saying you need to select a day
+            # popup saying you need to select a day
+            show_popup(3)
             return False
         else:
             # add reminders to goal
@@ -350,24 +474,26 @@ class NewGoal_Reminders(Screen):
                 New_Task.reminders += i + ", "
             New_Task.reminders += "at " + str(self.hours_options[self.hours_index])
             New_Task.reminders += ":" + str(self.minuets_options[self.minuets_index])
-            New_Task.reminders += " " +  str(self.am_pm_options[self.am_pm_index])
+            New_Task.reminders += " " + str(self.am_pm_options[self.am_pm_index])
 
             print("New Task reminder:", New_Task.reminders)
 
-            #user has done task 0 times
+            # user has done task 0 times
             New_Task.progressNum = 0
 
-            #add fish number for image source path
-            too_add = taskList[-1].picNumber + 1
-            if too_add == 11:
-                too_add = 1
-            New_Task.picNumber(too_add)
+            # add fish number for image source path
 
-            #add new goal to active goals
+            key_random, val_random = random.choice(list(fish_images.items()))
+            val_random = str(val_random)
+            New_Task.imagePath = val_random
+
+
+
+            # add new goal to active goals
             taskList.append(New_Task)
 
             # resetting the reminders screen
-            #reset checkboxes and labels
+            # reset checkboxes and labels
             for x in list([self.ids.check_mon, self.ids.check_tue, self.ids.check_wed, self.ids.check_thurs,
                            self.ids.check_fri, self.ids.check_sat, self.ids.check_sun]):
                 if x.active:
@@ -383,20 +509,24 @@ class NewGoal_Reminders(Screen):
             return True
 
 
-#Screen Manager -
+# Screen Manager -
 class WindowManager(ScreenManager):
     pass
 
-#Line which builds the kv file
+
+# Line which builds the kv file
 kv = Builder.load_file("my.kv")
 
-#main function
+
+# main function
 class MyApp(App):
 
     def build(self):
-        #makes the window white
+        # makes the window white
         Window.clearcolor = (1, 1, 1, 1)
         Window.size = (400, 700)
         return kv
+
+
 if __name__ == '__main__':
     MyApp().run()

@@ -15,9 +15,23 @@ WindowManager:
     background_color: 0.6, 0.882, 0.85, 1
     color: 0.176, 0.133, 0.133, 1
 
+
+#default for all horizontal lines to be black
+<HorizontalLine@Label>:
+    size_hint_x: 1  # This will cause the line to fill the width of its container
+    height: '2dp'  # This sets the thickness of the line
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1  # Set the color to black
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
 #default all labels to dark gray text
 <Label>:
     color: 0.176, 0.133, 0.133, 1
+
 
 #default padding and spacing for grid layouts
 <GridLayout>:
@@ -51,6 +65,12 @@ WindowManager:
                     width: 4
                     rectangle: self.x, self.y, self.width, self.height
 
+    # Container for animated images
+    BoxLayout:
+        id: image_container
+        orientation: 'horizontal'
+
+
     # nav bar (home)
     AnchorLayout:
         anchor_x: "center"
@@ -78,24 +98,35 @@ WindowManager:
     # Id for switching to my fish screen
     name: "myfish"
 
-    # title of screen (not currently in the correct position)
-    AnchorLayout:
-        anchor_x: "left"
-        anchor_y: "center"
-        size_hint: 0.2, 0.1
-        padding: 20
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Title of screen
         Label:
             text: "My Fish"
-            font_size: 40
+            size_hint: (1, None)
+            height: self.texture_size[1]
+            font_size: '24sp'
 
-    # button for returning to home screen
-    AnchorLayout:
-        anchor_x: "right"
-        anchor_y: "top"
+        # Container for fish images and horizontal lines
+        ScrollView:
+            size_hint: (1, 1)
+            do_scroll_x: False  # Disable horizontal scrolling
+            do_scroll_y: True   # Enable vertical scrolling
+
+            GridLayout:
+                id: fish_container
+                cols: 1
+                spacing: '2dp'
+                size_hint_y: None
+                width: self.minimum_width
+                height: self.minimum_height
+
+        # Button for returning to home screen
         Button:
-            text: "X"
-            font_size: 40
-            size_hint: 0.2, 0.1
+            text: "Back"
+            size_hint: (None, None)
+            size: ('70dp', '48dp')
             on_release:
                 app.root.current = "home"
                 root.manager.transition.direction = "up"
