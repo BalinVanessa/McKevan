@@ -32,12 +32,11 @@ Window.bind(on_resize=reSize)
 # progressNum: # of times task has been done
 # totalNum: total # of times task has to be done
 class Task:
-    def __init__(self, title, progressNum, totalNum, reminders, picNumber, imagePath):
+    def __init__(self, title, progressNum, totalNum, reminders, imagePath):
         self.title = title
         self.progressNum = progressNum
         self.totalNum = totalNum
         self.reminders = reminders
-        self.picNumber = picNumber
         self.imagePath = imagePath
 
 
@@ -59,19 +58,19 @@ fish_images = {
 
 # Create a list with any already existing Tasks (can be empty if we want
 # users to start with none like a new user)
-taskList = [Task("Attend Club Meeting", 5, 10, "User will be reminded on Saturday at 4:24 PM", 8,
+taskList = [Task("Attend Club Meeting", 5, 10, "User will be reminded on Saturday at 4:24 PM",
                  fish_images["Attend Club Meeting"]),
-            Task("Call Mom", 1, 10, "User will be reminded on Monday, Tuesday, at 7:0 AM", 9, fish_images["Call Mom"]),
-            Task("Text Friend", 2, 5, "User will be reminded on Friday at 12:10 PM", 10, fish_images["Text Friend"])]
+            Task("Call Mom", 1, 10, "User will be reminded on Monday, Tuesday, at 7:0 AM", fish_images["Call Mom"]),
+            Task("Text Friend", 2, 5, "User will be reminded on Friday at 12:10 PM", fish_images["Text Friend"])]
 
 # Create list that houses completed tasks
-completedTaskList = [Task("Attend Tennis Meeting", 6, 12, "User will be reminded on Saturday at 4:24 PM", 10,
+completedTaskList = [Task("Attend Tennis Meeting", 6, 12, "User will be reminded on Saturday at 4:24 PM",
                           fish_images["Attend Tennis Meeting"]),
-                     Task("Call Dad", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM", 10,
+                     Task("Call Dad", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM",
                           fish_images["Call Dad"]),
-                     Task("Call Friend", 2, 7, "User will be reminded on Friday at 12:10 PM", 10,
+                     Task("Call Friend", 2, 7, "User will be reminded on Friday at 12:10 PM",
                           fish_images["Call Friend"]),
-                     Task("Facetime Mom", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM", 10,
+                     Task("Facetime Mom", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM",
                           fish_images["Facetime Mom"]),
                      #Task("Say happy birthday to Sam", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM", 10,
                      #     fish_images["Say happy birthday to Sam"]),
@@ -84,7 +83,7 @@ completedTaskList = [Task("Attend Tennis Meeting", 6, 12, "User will be reminded
                      ]
 
 # Task which will be edited to add to task list
-New_Task = Task(None, None, None, None, None, None)
+New_Task = Task(None, None, None, None, None)
 
 
 # Defining pop-up function
