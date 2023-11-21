@@ -14,9 +14,12 @@ from kivy.uix.popup import Popup
 from kivy.animation import Animation
 from kivy.clock import Clock
 import random
+Config.set('input', 'mouse', 'mouse,disable_multitouch')
 
 # setting the window at a fixed size of 400, 700 and making it so that it cannot be resized
 _fixed_size = (400, 700)
+
+
 
 
 def reSize(*args):
@@ -60,7 +63,7 @@ fish_images = {
 # users to start with none like a new user)
 taskList = [Task("Attend Club Meeting", 5, 10, "User will be reminded on Saturday at 4:24 PM",
                  fish_images["Attend Club Meeting"]),
-            Task("Call Mom", 1, 10, "User will be reminded on Monday, Tuesday, at 7:0 AM", fish_images["Call Mom"]),
+            Task("Call Mom", 9, 10, "User will be reminded on Monday, Tuesday, at 7:0 AM", fish_images["Call Mom"]),
             Task("Text Friend", 2, 5, "User will be reminded on Friday at 12:10 PM", fish_images["Text Friend"])]
 
 # Create list that houses completed tasks
@@ -102,6 +105,17 @@ def show_popup(num):
                   size_hint=(None, None), size=(500, 250))
     popup.open()
 
+
+def show_popup_new():
+    msg = 'You have completed this goal!\nSee your new fish on the home screen!'
+    # Create the label with white text color
+    label = Label(text=msg, color=[1, 1, 1, 1])
+
+    # Create the popup with the label as its content
+    popup = Popup(title='Congratualations!',
+                  content=label,
+                  size_hint=(None, None), size=(500, 250))
+    popup.open()
 
 # Screens -
 # home screen
@@ -203,6 +217,7 @@ class ActiveGoalScreen(Screen):
         if self.currentTask.progressNum == self.currentTask.totalNum:
             completedTaskList.append(self.currentTask)
             taskList.remove(self.currentTask)
+            show_popup_new()
             self.updateIndex()
             self.updateTaskButtons()
 
@@ -519,6 +534,7 @@ kv = Builder.load_file("my.kv")
 
 # main function
 class MyApp(App):
+    
 
     def build(self):
         # makes the window white

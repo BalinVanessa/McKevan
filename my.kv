@@ -1,5 +1,6 @@
 #:kivy 2.2.1
 #root manager for all screens
+
 WindowManager:
     HomeScreen:
     ActiveGoalScreen:
@@ -80,15 +81,15 @@ WindowManager:
             size_hint: 1, 0.1
             cols: 3
             Button:
-                text: "home"
+                text: "Home"
                 disabled: True
             Button:
-                text: "active goals"
+                text: "Active Goals"
                 on_release:
                     app.root.current = "active"
                     root.manager.transition.direction = "left"
             Button:
-                text: "add goal"
+                text: "Add New Goal"
                 on_release:
                     app.root.current = "newgoal"
                     root.manager.transition.direction = "left"
@@ -231,15 +232,15 @@ WindowManager:
                 cols: 3
                 size_hint: 1, 1.6
                 Button:
-                    text: "home"
+                    text: "Home"
                     on_release:
                         app.root.current = "home"
                         root.manager.transition.direction = "right"
                 Button:
-                    text: "active goals"
+                    text: "Active Goals"
                     disabled: True
                 Button:
-                    text: "add goal"
+                    text: "Add New Goal"
                     on_release:
                         app.root.current = "newgoal"
                         root.manager.transition.direction = "left"
@@ -282,17 +283,17 @@ WindowManager:
             size_hint: 1, 0.1
             cols: 3
             Button:
-                text: "home"
+                text: "Home"
                 on_release:
                     app.root.current = "home"
                     root.manager.transition.direction = "right"
             Button:
-                text: "active goals"
+                text: "Active Goals"
                 on_release:
                     app.root.current = "active"
                     root.manager.transition.direction = "right"
             Button:
-                text: "add goal"
+                text: "Add New Goal"
                 disabled: True
 
 #screen for setting Name of goal
