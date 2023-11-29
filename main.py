@@ -13,6 +13,7 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.animation import Animation
 from kivy.clock import Clock
+from kivy.uix.button import Button
 import random
 Config.set('input', 'mouse', 'mouse,disable_multitouch')
 
@@ -94,7 +95,8 @@ def show_popup(num):
     errors = ['Cannot proceed without a task!!',
               'Cannot have a goal with \n0 times of achievement!',
               'You must enter a positive integer!!',
-              'You must select at least \none day to be reminded!!']
+              'You must select at least \none day to be reminded!!',
+              'Are you sure you want to \nflush this fish??']
 
     # Create the label with white text color
     label = Label(text=errors[num], color=[1, 1, 1, 1])
@@ -232,6 +234,42 @@ class ActiveGoalScreen(Screen):
         self.updateLabels()
         self.getFishImage()
         self.updateTaskButtons()
+
+    def show_confirmation_popup(self):
+        # Layout for buttons
+        button_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint=(1, None), height='50dp')
+
+        # Yes button
+        yes_button = Button(text='Yes', size_hint=(0.5, 1))
+        yes_button.bind(on_release=self.flush_fish_confirmed)
+
+        # No button
+        no_button = Button(text='No', size_hint=(0.5, 1))
+        no_button.bind(on_release=self.dismiss_popup)
+
+        # Add buttons to the layout
+        button_layout.add_widget(yes_button)
+        button_layout.add_widget(no_button)
+
+        # Button layout in pop up box
+        content_layout = BoxLayout(orientation='vertical', padding=10)
+        content_layout.add_widget(Label(text='', size_hint_y=None, height='50dp'))
+        content_layout.add_widget(button_layout)
+
+        # Create popup box
+        self.confirmation_popup = Popup(title='Are you sure you want to flush this fish??',
+                                        content=content_layout,
+                                        size_hint=(None, None),
+                                        size=('300dp', '200dp'),
+                                        auto_dismiss=False)
+        self.confirmation_popup.open()
+
+    def flush_fish_confirmed(self, instance):
+        self.flushFish()
+        self.confirmation_popup.dismiss()
+
+    def dismiss_popup(self, instance):
+        self.confirmation_popup.dismiss()
 
     # Function to update index after a task is removed/completed
     def updateIndex(self):
