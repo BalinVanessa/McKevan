@@ -543,7 +543,9 @@ class NewGoal_Reminders(Screen):
 
 
             # add new goal to active goals
-            taskList.append(New_Task)
+            to_add_task = Task(New_Task.title, New_Task.progressNum, New_Task.totalNum, New_Task.reminders, New_Task.imagePath)
+            taskList.append(to_add_task)
+
 
             # resetting the reminders screen
             # reset checkboxes and labels
