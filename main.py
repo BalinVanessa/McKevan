@@ -68,14 +68,15 @@ taskList = [Task("Attend Club Meeting", 5, 10, "User will be reminded on Saturda
             Task("Text Friend", 2, 5, "User will be reminded on Friday at 12:10 PM", fish_images["Text Friend"])]
 
 # Create list that houses completed tasks
-completedTaskList = [Task("Attend Tennis Meeting", 6, 12, "User will be reminded on Saturday at 4:24 PM",
-                          fish_images["Attend Tennis Meeting"]),
-                     Task("Call Dad", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM",
-                          fish_images["Call Dad"]),
-                     Task("Call Friend", 2, 7, "User will be reminded on Friday at 12:10 PM",
-                          fish_images["Call Friend"]),
-                     Task("Facetime Mom", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM",
-                          fish_images["Facetime Mom"]),
+completedTaskList = [
+                    #Task("Attend Tennis Meeting", 6, 12, "User will be reminded on Saturday at 4:24 PM",
+                    #      fish_images["Attend Tennis Meeting"]),
+                    # Task("Call Dad", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM",
+                    #      fish_images["Call Dad"]),
+                    # Task("Call Friend", 2, 7, "User will be reminded on Friday at 12:10 PM",
+                    #      fish_images["Call Friend"]),
+                    # Task("Facetime Mom", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM",
+                    #      fish_images["Facetime Mom"]),
                      #Task("Say happy birthday to Sam", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM", 10,
                      #     fish_images["Say happy birthday to Sam"]),
                      #Task("Go get dinner with Laura", 1, 5, "User will be reminded on Monday, Tuesday, at 7:0 AM", 10,
@@ -461,7 +462,7 @@ class NewGoal_Reminders(Screen):
     minuets_options = range(0, 60)
 
     hours_index = 2
-    hours_options = range(1, 12)
+    hours_options = range(1, 13)
 
     def am_pm_increase(self):
         self.am_pm_index += 1
@@ -493,7 +494,7 @@ class NewGoal_Reminders(Screen):
 
     def hours_increase(self):
         self.hours_index += 1
-        if self.hours_index == 11:
+        if self.hours_index == 12:
             self.hours_index = 0
 
         self.ids.hours_label.text = str(self.hours_options[self.hours_index])
@@ -501,7 +502,7 @@ class NewGoal_Reminders(Screen):
     def hours_decrease(self):
         self.hours_index -= 1
         if self.hours_index == -1:
-            self.hours_index = 10
+            self.hours_index = 11
 
         self.ids.hours_label.text = str(self.hours_options[self.hours_index])
 
