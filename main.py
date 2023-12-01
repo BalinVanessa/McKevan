@@ -189,6 +189,7 @@ class HorizontalLine(Label):
 # active goal screen
 class ActiveGoalScreen(Screen):
     def on_pre_enter(self):
+        self.updateIndex()
         self.updateLabels()
         self.updateTaskButtons()
 
@@ -235,6 +236,10 @@ class ActiveGoalScreen(Screen):
         self.updateLabels()
         self.getFishImage()
         self.updateTaskButtons()
+        print("HELLO")
+        for task in taskList:
+            print(task.title)
+        print("HELLO")
 
     def show_confirmation_popup(self):
         # Layout for buttons
@@ -545,6 +550,11 @@ class NewGoal_Reminders(Screen):
             # add new goal to active goals
             to_add_task = Task(New_Task.title, New_Task.progressNum, New_Task.totalNum, New_Task.reminders, New_Task.imagePath)
             taskList.append(to_add_task)
+
+            print("HELLO 2")
+            for task in taskList:
+                print(task.title)
+            print("HELLO 2")
 
 
             # resetting the reminders screen
