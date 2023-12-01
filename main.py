@@ -57,7 +57,7 @@ fish_images = {
     "Call Dad": "images/completed9.png",
     "Call Friend": "images/completed10.png",
     "Attend Tennis Meeting": "images/completed11.png",
-    "Attend Club Meeting": "images/completed1.png"
+    "Attend Club Meeting": "images/completed7.png"
 }
 
 # Create a list with any already existing Tasks (can be empty if we want
