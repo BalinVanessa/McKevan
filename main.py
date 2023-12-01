@@ -568,11 +568,11 @@ class WindowManager(ScreenManager):
 
 
 # Line which builds the kv file
-kv = Builder.load_file("my.kv")
+kv = Builder.load_file("FinFriends.kv")
 
 
 # main function
-class MyApp(App):
+class FinFriends(App):
     
 
     def build(self):
@@ -583,4 +583,4 @@ class MyApp(App):
 
 
 if __name__ == '__main__':
-    MyApp().run()
+    FinFriends().run()
