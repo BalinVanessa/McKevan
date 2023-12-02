@@ -158,7 +158,6 @@ WindowManager:
                 font_size: 40
 
     # image of the fish which is being revealed
-    #TODO implement the fuction to change image source path
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "center"
@@ -376,12 +375,12 @@ WindowManager:
             padding: 0, 0
             cols: 2
             Button:
-                text: "back"
+                text: "Back"
                 on_release:
                     app.root.current = "newgoal"
                     root.manager.transition.direction = "up"
             Button:
-                text: "next"
+                text: "Next"
                 on_release:
                     app.root.current = "newgoal_times" if root.new_goal_next_name() else "newgoal_name"
                     root.manager.transition.direction = "left"
@@ -403,7 +402,7 @@ WindowManager:
                 text: "How many times would you"
                 font_size: 40
             Label:
-                text: "like to achive this goal?"
+                text: "like to achieve this goal?"
                 font_size: 40
 
     #Number entry for number to achive
@@ -430,12 +429,12 @@ WindowManager:
             size_hint: 1, 0.1
             cols: 2
             Button:
-                text: "back"
+                text: "Back"
                 on_release:
                     app.root.current = "newgoal_name"
                     root.manager.transition.direction = "right"
             Button:
-                text: "next"
+                text: "Next"
                 on_release:
                     app.root.current = "newgoal_reminders" if root.new_goal_next() else "newgoal_times"
                     root.manager.transition.direction = "left"
@@ -591,13 +590,13 @@ WindowManager:
             cols: 2
             size_hint: 1, 0.1
             Button:
-                text: "back"
+                text: "Back"
                 on_release:
                     app.root.current = "newgoal_times"
                     root.manager.transition.direction = "right"
 
             Button:
-                text: "Submit"
+                text: "Create New Goal"
                 on_release:
-                    app.root.current = "newgoal" if root.new_goal_next_reminders() else "newgoal_reminders"
+                    app.root.current = "active" if root.new_goal_next_reminders() else "newgoal_reminders"
                     root.manager.transition.direction = "up"

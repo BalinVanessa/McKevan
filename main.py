@@ -90,6 +90,9 @@ completedTaskList = [
 # Task which will be edited to add to task list
 New_Task = Task(None, None, None, None, None)
 
+# flag variable for displaying most recent goal when goal added
+coming_from_add_goal = False
+
 
 # Defining pop-up function
 def show_popup(num):
@@ -188,17 +191,20 @@ class HorizontalLine(Label):
 
 # active goal screen
 class ActiveGoalScreen(Screen):
-    def on_pre_enter(self):
-        self.updateIndex()
-        self.updateLabels()
-        self.updateTaskButtons()
-
     # Current task we're on starting at 0
     index = 0
 
     # Get the task we're currently on
     currentTask = taskList[index]
     currentProgress = f'{currentTask.progressNum} / {currentTask.totalNum}'
+    def on_pre_enter(self):
+        global coming_from_add_goal
+        if coming_from_add_goal:
+            self.index = len(taskList)
+            coming_from_add_goal = False
+        self.updateIndex()
+        self.updateLabels()
+        self.updateTaskButtons()
 
     # Function that updates the fish image based on the current task's progress
     def getFishImage(self):
@@ -459,8 +465,8 @@ class NewGoal_Reminders(Screen):
     am_pm_index = 1
     am_pm_options = ["AM", "PM"]
 
-    minuets_index = 45
-    minuets_options = range(0, 60)
+    minuets_index = 6
+    minuets_options = range(0, 60, 5)
 
     hours_index = 2
     hours_options = range(1, 13)
@@ -481,7 +487,7 @@ class NewGoal_Reminders(Screen):
 
     def minuets_increase(self):
         self.minuets_index += 1
-        if self.minuets_index == 60:
+        if self.minuets_index == len(self.minuets_options):
             self.minuets_index = 0
 
         self.ids.minuets_label.text = str(self.minuets_options[self.minuets_index])
@@ -489,7 +495,7 @@ class NewGoal_Reminders(Screen):
     def minuets_decrease(self):
         self.minuets_index -= 1
         if self.minuets_index == -1:
-            self.minuets_index = 59
+            self.minuets_index = len(self.minuets_options)-1
 
         self.ids.minuets_label.text = str(self.minuets_options[self.minuets_index])
 
@@ -541,11 +547,13 @@ class NewGoal_Reminders(Screen):
             val_random = str(val_random)
             New_Task.imagePath = val_random
 
-
-
             # add new goal to active goals
             to_add_task = Task(New_Task.title, New_Task.progressNum, New_Task.totalNum, New_Task.reminders, New_Task.imagePath)
             taskList.append(to_add_task)
+
+            #flag varible for pre screen active goals
+            global coming_from_add_goal
+            coming_from_add_goal = True
 
 
             # resetting the reminders screen
@@ -582,6 +590,7 @@ class FinFriends(App):
         # makes the window white
         Window.clearcolor = (1, 1, 1, 1)
         Window.size = (400, 700)
+
         return kv
 
 
