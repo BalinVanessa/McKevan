@@ -200,9 +200,9 @@ class ActiveGoalScreen(Screen):
     def on_pre_enter(self):
         global coming_from_add_goal
         if coming_from_add_goal:
-            self.index = len(taskList)
+            self.index = len(taskList) - 1
             coming_from_add_goal = False
-        self.updateIndex()
+        self.currentTask = taskList[self.index]
         self.updateLabels()
         self.updateTaskButtons()
 
@@ -465,7 +465,7 @@ class NewGoal_Reminders(Screen):
     am_pm_index = 1
     am_pm_options = ["AM", "PM"]
 
-    minuets_index = 6
+    minuets_index = 9
     minuets_options = range(0, 60, 5)
 
     hours_index = 2
@@ -564,7 +564,7 @@ class NewGoal_Reminders(Screen):
                     x.active = False
 
             self.am_pm_index = 1
-            self.minuets_index = 45
+            self.minuets_index = 9
             self.hours_index = 2
             self.ids.am_pm_label.text = self.am_pm_options[self.am_pm_index]
             self.ids.minuets_label.text = str(self.minuets_options[self.minuets_index])
