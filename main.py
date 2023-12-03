@@ -230,10 +230,12 @@ class ActiveGoalScreen(Screen):
             show_popup_new()
             self.updateIndex()
             self.updateTaskButtons()
+            self.manager.current = "home"
 
         # Update Labels
         self.updateLabels()
         self.getFishImage()
+
 
     # Function that flushes the fish and updates the screen to a different goal afterwards
     def flushFish(self):
