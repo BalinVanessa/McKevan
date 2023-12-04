@@ -205,6 +205,7 @@ class ActiveGoalScreen(Screen):
         self.currentTask = taskList[self.index]
         self.updateLabels()
         self.updateTaskButtons()
+        self.getFishImage()
 
     # Function that updates the fish image based on the current task's progress
     def getFishImage(self):
@@ -231,6 +232,7 @@ class ActiveGoalScreen(Screen):
             self.updateIndex()
             self.updateTaskButtons()
             self.manager.current = "home"
+            self.manager.transition.direction = "right"
 
         # Update Labels
         self.updateLabels()
