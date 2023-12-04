@@ -118,9 +118,9 @@ def show_popup_new():
     label = Label(text=msg, color=[1, 1, 1, 1])
 
     # Create the popup with the label as its content
-    popup = Popup(title='Congratualations!',
+    popup = Popup(title='Congratulations!',
                   content=label,
-                  size_hint=(None, None), size=(500, 250))
+                  size_hint=(None, None), size=(600, 250))
     popup.open()
 
 # Screens -
