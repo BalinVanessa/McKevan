@@ -100,7 +100,8 @@ def show_popup(num):
               'Cannot have a goal with \n0 times of achievement! \nPress the screen to continue',
               'You must enter a positive integer!! \nPress the screen to continue',
               'You must select at least \none day to be reminded!! \nPress the screen to continue',
-              'Are you sure you want to \nflush this fish??']
+              'Are you sure you want to \nflush this fish??',
+              'Custom goal charter limit 60\nPress the screen to continue']
 
     # Create the label with white text color
     label = Label(text=errors[num], color=[1, 1, 1, 1])
@@ -434,6 +435,10 @@ class NewGoal_Name(Screen):
             self.goal_name = self.ids.goal_name_entry.text
         if not self.goal_name:
             show_popup(0)
+            return False
+        elif len(self.goal_name) > 60:
+            self.ids.goal_name_entry.text = ""
+            show_popup(5)
             return False
         else:
             # add to new goal
