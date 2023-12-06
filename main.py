@@ -96,10 +96,10 @@ coming_from_add_goal = False
 
 # Defining pop-up function
 def show_popup(num):
-    errors = ['Cannot proceed without a task!!',
-              'Cannot have a goal with \n0 times of achievement!',
-              'You must enter a positive integer!!',
-              'You must select at least \none day to be reminded!!',
+    errors = ['Cannot proceed without a task!! \nPress the screen to continue',
+              'Cannot have a goal with \n0 times of achievement! \nPress the screen to continue',
+              'You must enter a positive integer!! \nPress the screen to continue',
+              'You must select at least \none day to be reminded!! \nPress the screen to continue',
               'Are you sure you want to \nflush this fish??']
 
     # Create the label with white text color
@@ -113,7 +113,7 @@ def show_popup(num):
 
 
 def show_popup_new():
-    msg = 'You have completed this goal!\nSee your new fish on the home screen!'
+    msg = 'You have completed this goal!\nSee your new fish on the home screen! \nPress the screen to continue'
     # Create the label with white text color
     label = Label(text=msg, color=[1, 1, 1, 1])
 
