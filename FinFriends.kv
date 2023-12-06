@@ -54,7 +54,7 @@ WindowManager:
         anchor_y: "top"
         padding: 10, 10
         Button:
-            text: "My Fish"
+            text: "My Completed Fish"
             size_hint: 0.33, 0.1
             on_release:
                 app.root.current = "myfish"
@@ -104,7 +104,7 @@ WindowManager:
 
         # Title of screen
         Label:
-            text: "My Fish"
+            text: "My Completed Fish"
             size_hint: (1, None)
             height: self.texture_size[1]
             font_size: '24sp'
@@ -112,8 +112,10 @@ WindowManager:
         # Container for fish images and horizontal lines
         ScrollView:
             size_hint: (1, 1)
-            do_scroll_x: False  # Disable horizontal scrolling
-            do_scroll_y: True   # Enable vertical scrolling
+            do_scroll_x: False
+            do_scroll_y: True
+            bar_width: 20
+            bar_color: [0.6, 0.882, 0.85, 1]
 
             GridLayout:
                 id: fish_container
@@ -131,6 +133,7 @@ WindowManager:
             on_release:
                 app.root.current = "home"
                 root.manager.transition.direction = "up"
+
 
 # screen for displaying active goals
 <ActiveGoalScreen>:
