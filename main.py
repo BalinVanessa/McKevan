@@ -101,7 +101,7 @@ def show_popup(num):
               'You must enter a positive integer!! \nPress the screen to continue',
               'You must select at least \none day to be reminded!! \nPress the screen to continue',
               'Are you sure you want to \nflush this fish??',
-              'Custom goal charter limit 60\nPress the screen to continue']
+              'Custom goal charter limit 50\nPress the screen to continue']
 
     # Create the label with white text color
     label = Label(text=errors[num], color=[1, 1, 1, 1])
@@ -436,7 +436,7 @@ class NewGoal_Name(Screen):
         if not self.goal_name:
             show_popup(0)
             return False
-        elif len(self.goal_name) > 60:
+        elif len(self.goal_name) > 50:
             self.ids.goal_name_entry.text = ""
             show_popup(5)
             return False

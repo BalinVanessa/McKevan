@@ -308,88 +308,111 @@ WindowManager:
     name: "newgoal_name"
 
     #Title
-    BoxLayout:
-        orientation: "vertical"
-        spacing: 10
-        padding: 10, 20, 10, 10
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "top"
+        BoxLayout:
+            size_hint: 1, 0.15
+            orientation: "vertical"
+            spacing: 10
+            padding: 10, 20, 10, 10
 
-        Label:
-            text: "What is your goal?"
-            font_size: 40
-        Label:
-            text: "Write a custom goal"
-            font_size: 40
+            Label:
+                text: "What is your goal?"
+                font_size: 40
 
-        #Custom goal entry box
-        TextInput:
-            id: goal_name_entry
-            multiline: False
-            size_hint_x: 0.8
-            pos_hint: {"center_x":0.5}
-        Label:
-            text: "or"
-            font_size: 40
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "center"
 
-        #Goal Presets
-        Label:
-            text: "Choose a preset"
-            font_size: 40
-        Button:
-            text: "Text Someone First"
-            size_hint_x: 0.8
-            pos_hint: {"center_x":0.5}
-            on_press: root.goal_name_preset("Text Someone First")
-            on_release:
-                app.root.current = "newgoal_times"
-                root.manager.transition.direction = "left"
-        Button:
-            text: "Call a Family Member"
-            size_hint_x: 0.8
-            pos_hint: {"center_x":0.5}
-            on_press: root.goal_name_preset("Call a Family Member")
-            on_release:
-                app.root.current = "newgoal_times"
-                root.manager.transition.direction = "left"
-        Button:
-            text: "Compliment a Friend"
-            size_hint_x: 0.8
-            pos_hint: {"center_x":0.5}
-            on_press: root.goal_name_preset("Compliment a Friend")
-            on_release:
-                app.root.current = "newgoal_times"
-                root.manager.transition.direction = "left"
-        Button:
-            text: "Attend a Club"
-            size_hint_x: 0.8
-            pos_hint: {"center_x":0.5}
-            on_press: root.goal_name_preset("Attend a Club")
-            on_release:
-                app.root.current = "newgoal_times"
-                root.manager.transition.direction = "left"
-        Button:
-            text: "Try Something New With Someone"
-            size_hint_x: 0.8
-            pos_hint: {"center_x":0.5}
-            on_press: root.goal_name_preset("Try Something New With Someone")
-            on_release:
-                app.root.current = "newgoal_times"
-                root.manager.transition.direction = "left"
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 1, 0.7
+
+            Label:
+                text: "Write a custom goal"
+                font_size: 40
+
+            #Custom goal entry box
+            TextInput:
+                id: goal_name_entry
+                multiline: False
+                size_hint_x: 0.8
+                pos_hint: {"center_x":0.5}
+
+            Label:
+                text: "or\nChoose a preset"
+                font_size: 40
+
+            #Goal Presets
+            BoxLayout:
+                orientation: "vertical"
+                spacing: 50
+
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text: "Text Someone First"
+                        font_size: 40
+                    CheckBox:
+                        group: "preset_goals"
+                        size_hint_x: 0.25
+
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text: "Call a Family Member"
+                        font_size: 40
+                    CheckBox:
+                        group: "preset_goals"
+                        size_hint_x: 0.25
+
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text: "Compliment a Friend"
+                        font_size: 40
+                    CheckBox:
+                        group: "preset_goals"
+                        size_hint_x: 0.25
+
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text: "Attend a Club"
+                        font_size: 40
+                    CheckBox:
+                        group: "preset_goals"
+                        size_hint_x: 0.25
+
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text: "Try Something New With Someone"
+                        font_size: 40
+                    CheckBox:
+                        group: "preset_goals"
+                        size_hint_x: 0.25
 
         #back and forward buttons
-        GridLayout:
-            size_y: root.height * 0.1
-            padding: 0, 0
-            cols: 2
-            Button:
-                text: "Back"
-                on_release:
-                    app.root.current = "newgoal"
-                    root.manager.transition.direction = "up"
-            Button:
-                text: "Next"
-                on_release:
-                    app.root.current = "newgoal_times" if root.new_goal_next_name() else "newgoal_name"
-                    root.manager.transition.direction = "left"
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "bottom"
+
+            GridLayout:
+                size_hint: 1, 0.1
+                cols: 2
+
+                Button:
+                    text: "Back"
+                    on_release:
+                        app.root.current = "newgoal"
+                        root.manager.transition.direction = "up"
+                Button:
+                    text: "Next"
+                    on_release:
+                        app.root.current = "newgoal_times" if root.new_goal_next_name() else "newgoal_name"
+                        root.manager.transition.direction = "left"
 
 #screen for setting number of times you want to achive
 <NewGoal_Times>:
