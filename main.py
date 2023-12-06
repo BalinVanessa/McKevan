@@ -202,7 +202,10 @@ class ActiveGoalScreen(Screen):
         if coming_from_add_goal:
             self.index = len(taskList) - 1
             coming_from_add_goal = False
-        self.currentTask = taskList[self.index]
+
+        if (len(taskList) != 0):
+            self.currentTask = taskList[self.index]
+            
         self.updateLabels()
         self.updateTaskButtons()
         self.getFishImage()
@@ -329,6 +332,7 @@ class ActiveGoalScreen(Screen):
 
     # Function that updates the labels on the screen
     def updateLabels(self):
+        # if there are no goals
         if len(taskList) == 0:
             self.ids.goal_title_label.text = "No active goals!"
             self.ids.goal_progress_label.text = "Go to Add Goal!"
