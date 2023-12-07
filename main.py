@@ -101,7 +101,8 @@ def show_popup(num):
               'You must enter a positive integer!! \nPress the screen to continue',
               'You must select at least \none day to be reminded!! \nPress the screen to continue',
               'Are you sure you want to \nflush this fish??',
-              'Custom goal charter limit 50\nPress the screen to continue']
+              'Custom goal charter limit 50\nPress the screen to continue',
+              'Can\'t have both a custom & preset\nPress the screen to continue']
 
     # Create the label with white text color
     label = Label(text=errors[num], color=[1, 1, 1, 1])
@@ -423,6 +424,7 @@ class NewGoalScreen(Screen):
 # name of goal
 class NewGoal_Name(Screen):
     goal_name = ""
+    preset_check = ""
 
     def goal_name_preset(self, preset_name):
         self.goal_name = preset_name
@@ -431,12 +433,22 @@ class NewGoal_Name(Screen):
         self.ids.goal_name_entry.text = ""
 
     def new_goal_next_name(self):
-        if self.ids.goal_name_entry.text:
-            self.goal_name = self.ids.goal_name_entry.text
-        if not self.goal_name:
+        #both preset and custom filled
+        if self.ids.goal_name_entry.text and self.preset_check:
+            show_popup(6)
+            return False
+        #neither are checked
+        elif not self.ids.goal_name_entry.text and not self.preset_check:
             show_popup(0)
             return False
-        elif len(self.goal_name) > 50:
+        #preset checked
+        elif self.preset_check:
+            self.goal_name = self.preset_check
+        #custom filled
+        elif self.ids.goal_name_entry.text:
+            self.goal_name = self.ids.goal_name_entry.text
+
+        if len(self.goal_name) > 50:
             self.ids.goal_name_entry.text = ""
             show_popup(5)
             return False
@@ -447,6 +459,13 @@ class NewGoal_Name(Screen):
             self.goal_name = ""
             self.ids.goal_name_entry.text = ""
             return True
+
+    def name_check_click(self, instance, value, goal):
+        if value:
+            self.preset_check = goal
+            #print(self.preset_check)
+        else:
+            self.preset_check = ""
 
 
 # times to achive goal
