@@ -472,6 +472,10 @@ class NewGoal_Name(Screen):
 class NewGoal_Times(Screen):
     times_achieved = None
 
+    def on_pre_enter(self, *args):
+        self.display_current_goal_times()
+    def display_current_goal_times(self):
+        self.ids.current_goal_name_times.text = "Goal Title: " + New_Task.title
     def new_goal_next(self):
         self.times_achieved = self.ids.goal_achieve_number.text
 
@@ -502,6 +506,11 @@ class NewGoal_Reminders(Screen):
 
     hours_index = 2
     hours_options = range(1, 13)
+
+    def on_pre_enter(self, *args):
+        self.display_current_goal_reminders()
+    def display_current_goal_reminders(self):
+        self.ids.current_goal_name_times.text = "Goal Title: " + New_Task.title + "\nTimes to Complete: " + str(New_Task.totalNum)
 
     def am_pm_increase(self):
         self.am_pm_index += 1

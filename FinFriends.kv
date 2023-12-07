@@ -57,7 +57,8 @@ WindowManager:
         anchor_y: "top"
         padding: 10, 10
         Button:
-            text: "My Completed\n          Fish"
+            text: "My Completed\nFish"
+            halign: "center"
             size_hint: 0.33, 0.1
             on_release:
                 app.root.current = "myfish"
@@ -446,21 +447,29 @@ WindowManager:
                 text: "like to achieve this goal?"
                 font_size: 40
 
+
     #Number entry for number to achive
     AnchorLayout:
         anchor_x: "center"
         anchor_y: "center"
 
         BoxLayout:
-            orientation: "horizontal"
-            spacing: 10
-            size_hint: 0.3, 0.1
+            orientation:"vertical"
+            size_hint: 1, 0.2
+
+            Label:
+                id: current_goal_name_times
+                text: "Goal Title: "
+                font_size: 40
 
             TextInput:
                 id: goal_achieve_number
                 multiline: False
                 text: "10"
                 font_size: 40
+                size_hint: 0.25, 0.3
+                pos_hint: {'center_x':0.5}
+
 
     # back and forward buttons 
     AnchorLayout:
@@ -506,11 +515,17 @@ WindowManager:
         anchor_y: "center"
         BoxLayout:
             orientation: "vertical"
-            size_hint: 0.8, 0.35
+            size_hint: 0.9, 0.35
             spacing: 30
+
+            Label:
+                id: current_goal_name_times
+                text: "Goal Title:\nTimes to Complete:"
+                font_size: 40
 
             BoxLayout:
                 orientation: "horizontal"
+                size_hint: 1, 1.5
 
                 BoxLayout:
                     orientation: "vertical"
@@ -519,7 +534,7 @@ WindowManager:
                         background_normal: "images/arrow_up.png"
                         background_down: "images/arrow_up.png"
                         border: (0, 0, 0, 0)
-                        size_hint: 0.25, 0.3
+                        size_hint: 0.2, 0.3
                         pos_hint: {'center_x':0.5}
                         on_press: root.hours_increase()
                     Label:
@@ -531,7 +546,7 @@ WindowManager:
                         background_normal: "images/arrow_down.png"
                         background_down: "images/arrow_down.png"
                         border: (0, 0, 0, 0)
-                        size_hint: 0.25, 0.3
+                        size_hint: 0.2, 0.3
                         pos_hint: {'center_x':0.5}
                         on_press: root.hours_decrease()
                 Image:
@@ -545,7 +560,7 @@ WindowManager:
                         background_normal: "images/arrow_up.png"
                         background_down: "images/arrow_up.png"
                         border: (0, 0, 0, 0)
-                        size_hint: 0.25, 0.3
+                        size_hint: 0.2, 0.3
                         pos_hint: {'center_x':0.5}
                         on_press: root.minuets_increase()
                     Label:
@@ -557,7 +572,7 @@ WindowManager:
                         background_normal: "images/arrow_down.png"
                         background_down: "images/arrow_down.png"
                         border: (0, 0, 0, 0)
-                        size_hint: 0.25, 0.3
+                        size_hint: 0.2, 0.3
                         pos_hint: {'center_x':0.5}
                         on_press: root.minuets_decrease()
                 BoxLayout:
@@ -567,7 +582,7 @@ WindowManager:
                         background_normal: "images/arrow_up.png"
                         background_down: "images/arrow_up.png"
                         border: (0, 0, 0, 0)
-                        size_hint: 0.25, 0.3
+                        size_hint: 0.2, 0.3
                         pos_hint: {'center_x':0.5}
                         on_press: root.am_pm_increase()
                     Label:
@@ -579,13 +594,13 @@ WindowManager:
                         background_normal: "images/arrow_down.png"
                         background_down: "images/arrow_down.png"
                         border: (0, 0, 0, 0)
-                        size_hint: 0.25, 0.3
+                        size_hint: 0.2, 0.3
                         pos_hint: {'center_x':0.5}
                         on_press: root.am_pm_decrease()
 
             GridLayout:
                 cols: 7
-                size_hint_y: 0.35
+                size_hint_y: 0.8
 
                 CheckBox:
                     id: check_mon
